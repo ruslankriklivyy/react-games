@@ -1,25 +1,54 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route } from 'react-router';
+import styled, { createGlobalStyle } from 'styled-components';
+
+import { Categories, Games, Header } from './components';
+import { GamePage } from './pages';
+
+const GlobalStyles = createGlobalStyle`
+*{
+  box-sizing: border-box;
+  font-family: 'Rubik', sans-serif;
+}
+  html, body {
+    background-color: #1E1F21;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+  }
+  p {
+    padding: 0;
+    margin: 0;
+  }
+  a {
+    text-decoration: none;
+  }
+  ul, li {
+    list-style: none;
+  }
+`;
+
+export const Container = styled.div`
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 15px;
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyles />
+      <div className="App">
+        <Route path="/" component={Header} />
+        <Route exact path="/" component={Categories} />
+        <Route exact path="/" component={Games} />
+        <Route exact path="/game" component={GamePage} />
+      </div>
+    </>
   );
 }
 
