@@ -1,10 +1,13 @@
 import React from 'react';
+import Fade from 'react-reveal/Fade';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { fetchOneGame } from '../redux/gamesReducer';
 import { RootState } from '../redux/store';
 import { Link } from 'react-router-dom';
 
+import plusSvg from '../assets/images/plus.svg';
+import epicGamesPng from '../assets/images/epicGames.png';
 import backSvg from '../assets/images/back.svg';
 import starSvg from '../assets/images/star.svg';
 import appStorePng from '../assets/images/app-store.png';
@@ -15,6 +18,7 @@ import steamPng from '../assets/images/steam.png';
 import gogPng from '../assets/images/gog.png';
 import playstationPng from '../assets/images/playstation.png';
 import nintendoPng from '../assets/images/nintendo.png';
+import { Button } from '../components';
 
 const GamePageBlock = styled.div`
   position: relative;
@@ -53,6 +57,27 @@ const GamePageLeft = styled.div`
 
 const GamePageRight = styled.div`
   width: 60%;
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: 2px solid #0581aa;
+    margin-top: 30px;
+    width: 220px;
+    height: 50px;
+    font-size: 17px;
+    border-radius: 7px;
+    transition: all 0.2s ease;
+    &:hover {
+      opacity: 0.8;
+    }
+    img {
+      width: 25px;
+      height: 25px;
+      margin-left: 20px;
+    }
+  }
 `;
 
 const GamePageTitle = styled.h4`
@@ -63,11 +88,13 @@ const GamePageTitle = styled.h4`
 
 const GamePageInfo = styled.div`
   display: flex;
+  flex-wrap: wrap;
   margin-top: 25px;
 `;
 
 const GamePageInfoItem = styled.div`
   margin-right: 15px;
+  margin-bottom: 5px;
   font-size: 15px;
   b {
     font-weight: 400;
@@ -96,10 +123,12 @@ const GamePageInfoBottom = styled.div`
 
 const GamePagePlatforms = styled.div`
   display: flex;
+  flex-wrap: wrap;
   margin-top: 20px;
 `;
 
 const GamePagePlatformsItem = styled.div`
+  margin-bottom: 5px;
   margin-right: 20px;
 `;
 
@@ -159,7 +188,7 @@ const Back = styled.div`
   position: fixed;
   top: 25px;
   left: 0;
-  z-index: 10;
+  z-index: 990;
   width: 130px;
   height: 40px;
 
@@ -172,10 +201,10 @@ const Back = styled.div`
     height: 100%;
     border-bottom-right-radius: 8px;
     border-top-right-radius: 8px;
-    border: 2px solid #4e4f51;
+    border: 2px solid #22272b;
     border-left: none;
     font-size: 20px;
-    color: #4e4f51;
+    color: #fff;
     transition: all 0.2s ease;
     &:hover {
       opacity: 1;
@@ -189,14 +218,19 @@ const Back = styled.div`
 `;
 
 const storesLinks = [
-  { name: 'Xbox Store', img: xboxPng, link: '' },
-  { name: 'Xbox 360 Store', img: xbox360Png, link: '' },
-  { name: 'Steam', img: steamPng, link: '' },
-  { name: 'PlayStation Store', img: playstationPng, link: '' },
-  { name: 'Google Play', img: googlePlayPng, link: '' },
-  { name: 'App Store', img: appStorePng, link: '' },
-  { name: 'GOG', img: gogPng, link: '' },
-  { name: 'Nintendo Store', img: nintendoPng, link: '' },
+  { name: 'Xbox Store', img: xboxPng, link: 'microsoft.com' },
+  { name: 'Epic Games', img: epicGamesPng, link: 'epicgames.com' },
+  { name: 'Xbox 360 Store', img: xbox360Png, link: 'marketplace.xbox.com' },
+  { name: 'Steam', img: steamPng, link: 'store.steampowered.com' },
+  {
+    name: 'PlayStation Store',
+    img: playstationPng,
+    link: 'store.playstation.com',
+  },
+  { name: 'Google Play', img: googlePlayPng, link: 'play.google.com' },
+  { name: 'App Store', img: appStorePng, link: 'apps.apple.com' },
+  { name: 'GOG', img: gogPng, link: 'gog.com' },
+  { name: 'Nintendo Store', img: nintendoPng, link: 'nintendo.com' },
 ];
 
 const GamePage = () => {
@@ -204,17 +238,22 @@ const GamePage = () => {
   const chosenGame = useSelector((state: RootState) => state.gamesReducer.chosenGame);
   const gameId = useSelector((state: RootState) => state.gamesReducer.gameId);
 
-  const generateLinks = () => {
-    storesLinks.forEach((i) => {
-      chosenGame.stores.forEach((item) =>
-        item.store.name === i.name ? (i.link = item.store.domain) : '',
-      );
-    });
-  };
+  const generateLinks = React.useCallback(
+    (arr: any) => {
+      const active = chosenGame.stores.map((i) => i.store.name);
+      const result = arr.map((i: any) => {
+        if (active.indexOf(i.name) >= 0) {
+          return i;
+        } else {
+          return null;
+        }
+      });
+      return result;
+    },
+    [chosenGame.stores],
+  );
 
-  if (chosenGame.stores) {
-    console.log(generateLinks());
-  }
+  const newArr = chosenGame.stores ? generateLinks(storesLinks) : [];
 
   React.useEffect(() => {
     dispatch(fetchOneGame(gameId));
@@ -229,65 +268,72 @@ const GamePage = () => {
             <img src={backSvg} alt="back svg" />
           </Link>
         </Back>
-        <GamePageBlock>
-          <GamePageBlur
-            style={{
-              backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${chosenGame.background_image_additional})`,
-            }}></GamePageBlur>
-          <GamePageWrapper>
-            <GamePageMain>
-              <GamePageLeft>
-                <img src={chosenGame.background_image} alt="game img" />
-              </GamePageLeft>
-              <GamePageRight>
-                <GamePageTitle>{chosenGame.name}</GamePageTitle>
-                <GamePageDescription>
-                  {chosenGame.description && chosenGame.description_raw}
-                </GamePageDescription>
-                <GamePageInfo>
-                  <GamePageInfoItem>
-                    <b>Released:</b> <span>{chosenGame.released}</span>
-                  </GamePageInfoItem>
-                  <GamePageInfoItem>
-                    <b>Developers: </b>
-                    {chosenGame.developers &&
-                      chosenGame.developers.map(({ name, id }) => (
-                        <GamePageDevelopers key={id}>{name}</GamePageDevelopers>
-                      ))}
-                  </GamePageInfoItem>
-                  <GamePageInfoItem>
-                    <b>Publishers: </b>
-                    {chosenGame.publishers &&
-                      chosenGame.publishers.map(({ name, id }) => <span key={id}>{name}</span>)}
-                  </GamePageInfoItem>
-                </GamePageInfo>
-                <GamePageInfoBottom>
-                  <GamePageRating>
-                    <img src={starSvg} alt="star svg" />
-                    {chosenGame.rating}
-                  </GamePageRating>
-                  <GamePagePlatforms>
-                    {chosenGame.platforms &&
-                      chosenGame.platforms.map((item) => (
-                        <GamePagePlatformsItem>{item.platform.name}</GamePagePlatformsItem>
-                      ))}
-                  </GamePagePlatforms>
-                </GamePageInfoBottom>
-                <GamePageStores>
-                  {chosenGame.stores &&
-                    storesLinks.map(
-                      (item, index) =>
-                        item.link !== '' && (
-                          <a href={`https://${item.link}`} id={index.toString()}>
-                            <img src={item.img} alt="store img" />
-                          </a>
-                        ),
-                    )}
-                </GamePageStores>
-              </GamePageRight>
-            </GamePageMain>
-          </GamePageWrapper>
-        </GamePageBlock>
+        <Fade left>
+          <GamePageBlock>
+            <GamePageBlur
+              style={{
+                backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${chosenGame.background_image_additional})`,
+              }}></GamePageBlur>
+            <GamePageWrapper>
+              <GamePageMain>
+                <GamePageLeft>
+                  <img src={chosenGame.background_image} alt="game img" />
+                </GamePageLeft>
+                <GamePageRight>
+                  <Fade left>
+                    <GamePageTitle>{chosenGame.name}</GamePageTitle>
+                    <GamePageDescription>
+                      {chosenGame.description && chosenGame.description_raw}
+                    </GamePageDescription>
+                    <GamePageInfo>
+                      <GamePageInfoItem>
+                        <b>Released:</b> <span>{chosenGame.released}</span>
+                      </GamePageInfoItem>
+                      <GamePageInfoItem>
+                        <b>Developers: </b>
+                        {chosenGame.developers &&
+                          chosenGame.developers.map(({ name, id }) => (
+                            <GamePageDevelopers key={id}>{name}</GamePageDevelopers>
+                          ))}
+                      </GamePageInfoItem>
+                      <GamePageInfoItem>
+                        <b>Publishers: </b>
+                        {chosenGame.publishers &&
+                          chosenGame.publishers.map(({ name, id }) => <span key={id}>{name}</span>)}
+                      </GamePageInfoItem>
+                    </GamePageInfo>
+                    <GamePageInfoBottom>
+                      <GamePageRating>
+                        <img src={starSvg} alt="star svg" />
+                        {chosenGame.rating}
+                      </GamePageRating>
+                      <GamePagePlatforms>
+                        {chosenGame.platforms &&
+                          chosenGame.platforms.map((item) => (
+                            <GamePagePlatformsItem>{item.platform.name}</GamePagePlatformsItem>
+                          ))}
+                      </GamePagePlatforms>
+                    </GamePageInfoBottom>
+                    <GamePageStores>
+                      {chosenGame.stores &&
+                        newArr.map(
+                          (item: any, index: any) =>
+                            item && (
+                              <a href={`https://${item.link}`} key={index.toString()}>
+                                <img src={item.img} alt="store img" />
+                              </a>
+                            ),
+                        )}
+                    </GamePageStores>
+                    <Button>
+                      Add to list <img src={plusSvg} alt="plus svg" />
+                    </Button>
+                  </Fade>
+                </GamePageRight>
+              </GamePageMain>
+            </GamePageWrapper>
+          </GamePageBlock>
+        </Fade>
       </>
     )
   );

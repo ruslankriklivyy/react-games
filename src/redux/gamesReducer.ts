@@ -9,7 +9,7 @@ interface IPlatformsItem {
   slug: string;
 }
 
-interface IPlatforms {
+export interface IPlatforms {
   platform: IPlatformsItem;
 }
 

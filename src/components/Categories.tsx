@@ -1,9 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { Container } from '../App';
+
 import { fetchGenres, setGenreName } from '../redux/gamesReducer';
 import { RootState } from '../redux/store';
+
+import { Container } from '../App';
 
 const CategoriesWrapper = styled.div`
   padding-top: 120px;
@@ -53,7 +55,8 @@ const CategoriesItem = styled.div`
   border-radius: 7px;
   transition: all 0.2s ease;
   border: 2px solid transparent;
-  ${(props: any) => (props.active ? 'border: 2px solid #0581aa' : 'border: 2px solid transparent')};
+  ${(props: IProps) =>
+    props.active ? 'border: 2px solid #0581aa' : 'border: 2px solid transparent'};
   &:hover {
     border: 2px solid #0581aa;
   }
@@ -68,9 +71,14 @@ const CategoriesItem = styled.div`
   }
 `;
 
+interface IProps {
+  active: boolean;
+}
+
 const Categories = () => {
   const dispatch = useDispatch();
   const genres = useSelector((state: RootState) => state.gamesReducer.genres);
+  const genreName = useSelector((state: RootState) => state.gamesReducer.genreName);
 
   const onSelectGenre = (genreName: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -90,7 +98,9 @@ const Categories = () => {
               genres.results &&
               genres.results.map(({ name, id, image_background }) => (
                 <li key={id}>
-                  <CategoriesItem onClick={(e) => onSelectGenre(name, e)}>
+                  <CategoriesItem
+                    active={genreName?.toLowerCase() === name.toLowerCase() ? true : false}
+                    onClick={(e: React.MouseEvent) => onSelectGenre(name, e)}>
                     <img src={image_background} alt="genre img" />
                     <a href="/">{name}</a>
                   </CategoriesItem>
