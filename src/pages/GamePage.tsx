@@ -1,11 +1,15 @@
 import React from 'react';
 import Fade from 'react-reveal/Fade';
+import Slider from 'react-slick';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { fetchOneGame } from '../redux/gamesReducer';
+import { fecthScreenshots, fetchOneGame } from '../redux/gamesReducer';
 import { RootState } from '../redux/store';
 import { Link } from 'react-router-dom';
+import InnerImageZoom from 'react-inner-image-zoom';
+import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css';
 
+import linkSvg from '../assets/images/link.svg';
 import plusSvg from '../assets/images/plus.svg';
 import epicGamesPng from '../assets/images/epicGames.png';
 import backSvg from '../assets/images/back.svg';
@@ -19,6 +23,7 @@ import gogPng from '../assets/images/gog.png';
 import playstationPng from '../assets/images/playstation.png';
 import nintendoPng from '../assets/images/nintendo.png';
 import { Button } from '../components';
+import scrollTop from '../utils/scrollTop';
 
 const GamePageBlock = styled.div`
   position: relative;
@@ -81,9 +86,16 @@ const GamePageRight = styled.div`
 `;
 
 const GamePageTitle = styled.h4`
+  display: flex;
+  align-items: center;
   font-weight: 500;
   font-size: 35px;
   margin-bottom: 20px;
+  img {
+    width: 23px;
+    height: 23px;
+    margin-left: 15px;
+  }
 `;
 
 const GamePageInfo = styled.div`
@@ -128,7 +140,7 @@ const GamePagePlatforms = styled.div`
 `;
 
 const GamePagePlatformsItem = styled.div`
-  margin-bottom: 5px;
+  line-height: 1.2;
   margin-right: 20px;
 `;
 
@@ -217,6 +229,23 @@ const Back = styled.div`
   }
 `;
 
+const GamePageScreenshots = styled.div`
+  padding-bottom: 40px;
+  img {
+    object-fit: cover;
+  }
+  .slick-dots {
+    li {
+      button {
+        &::before {
+          font-size: 12px;
+          color: #0581aa;
+        }
+      }
+    }
+  }
+`;
+
 const storesLinks = [
   { name: 'Xbox Store', img: xboxPng, link: 'microsoft.com' },
   { name: 'Epic Games', img: epicGamesPng, link: 'epicgames.com' },
@@ -237,6 +266,7 @@ const GamePage = () => {
   const dispatch = useDispatch();
   const chosenGame = useSelector((state: RootState) => state.gamesReducer.chosenGame);
   const gameId = useSelector((state: RootState) => state.gamesReducer.gameId);
+  const screenshots = useSelector((state: RootState) => state.gamesReducer.screenshots);
 
   const generateLinks = React.useCallback(
     (arr: any) => {
@@ -255,8 +285,24 @@ const GamePage = () => {
 
   const newArr = chosenGame.stores ? generateLinks(storesLinks) : [];
 
+  const settings = {
+    dots: true,
+    arrows: false,
+    infinite: true,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+  };
+
+  React.useEffect(() => {
+    dispatch(fecthScreenshots(chosenGame.slug));
+  }, [dispatch, chosenGame.slug]);
+
   React.useEffect(() => {
     dispatch(fetchOneGame(gameId));
+    scrollTop();
   }, [dispatch, gameId]);
 
   return (
@@ -281,7 +327,12 @@ const GamePage = () => {
                 </GamePageLeft>
                 <GamePageRight>
                   <Fade left>
-                    <GamePageTitle>{chosenGame.name}</GamePageTitle>
+                    <GamePageTitle>
+                      {chosenGame.name}
+                      <a href={chosenGame.website}>
+                        <img src={linkSvg} alt="link svg" />
+                      </a>
+                    </GamePageTitle>
                     <GamePageDescription>
                       {chosenGame.description && chosenGame.description_raw}
                     </GamePageDescription>
@@ -332,6 +383,15 @@ const GamePage = () => {
                 </GamePageRight>
               </GamePageMain>
             </GamePageWrapper>
+            <GamePageScreenshots>
+              <Slider {...settings}>
+                {screenshots.results &&
+                  screenshots.results.length > 0 &&
+                  screenshots.results.map((item) => (
+                    <InnerImageZoom src={item.image} zoomSrc={item.image} alt="screen game" />
+                  ))}
+              </Slider>
+            </GamePageScreenshots>
           </GamePageBlock>
         </Fade>
       </>

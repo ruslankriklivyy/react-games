@@ -82,7 +82,7 @@ const Categories = () => {
 
   const onSelectGenre = (genreName: string, e: React.MouseEvent) => {
     e.preventDefault();
-    dispatch(setGenreName(genreName.toLowerCase().replace(/\s+/g, '')));
+    dispatch(setGenreName(genreName));
   };
 
   React.useEffect(() => {
@@ -96,11 +96,11 @@ const Categories = () => {
           <ul>
             {genres &&
               genres.results &&
-              genres.results.map(({ name, id, image_background }) => (
+              genres.results.map(({ name, id, slug, image_background }) => (
                 <li key={id}>
                   <CategoriesItem
                     active={genreName?.toLowerCase() === name.toLowerCase() ? true : false}
-                    onClick={(e: React.MouseEvent) => onSelectGenre(name, e)}>
+                    onClick={(e: React.MouseEvent) => onSelectGenre(slug, e)}>
                     <img src={image_background} alt="genre img" />
                     <a href="/">{name}</a>
                   </CategoriesItem>

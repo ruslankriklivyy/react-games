@@ -6,6 +6,8 @@ import {
   setGames,
   setChosenGame,
   FETCH_ONE_GAME,
+  setScreenshots,
+  FETCH_SCREENSHOTS,
 } from '../gamesReducer';
 
 import axios from 'axios';
@@ -15,31 +17,49 @@ const games = axios.create({
   baseURL: 'https://api.rawg.io/api/',
 });
 
+const fetchScreenshotsFromApi = (name: any) =>
+  games
+    .get(`games/${name.payload}/screenshots?key=722c9d0913da4424a89ab6e326074614`)
+    .then(({ data }) => {
+      return data;
+    });
+
 const fetchOneGameFromApi = (id: number) =>
   games.get(`games/${id}?key=722c9d0913da4424a89ab6e326074614`).then(({ data }) => {
-    console.log(data);
     return data;
   });
 
 const fetchGenresFromApi = () =>
   games.get('genres?key=722c9d0913da4424a89ab6e326074614').then(({ data }) => {
+    console.log(data);
     return data;
   });
 
-const fetchGamesFromApi = (genreName: string, quearySearch: string) =>
+const fetchGamesFromApi = (genreName: string, quearySearch: string, pageNumber: number) =>
   games
     .get(
       `games?key=722c9d0913da4424a89ab6e326074614${
         quearySearch !== '' ? `&search=${quearySearch}` : ''
-      }${genreName !== null ? `&genres=${genreName}` : ''}`,
+      }${genreName !== null ? `&genres=${genreName}` : ''}&page=${pageNumber}`,
     )
     .then(({ data }) => {
       return data;
     });
 
-function* fetchGamesWorker(genreName: any, quearySearch: any) {
+function* fetchScreenshotsWorker(name: string) {
   // @ts-ignore
-  const data = yield fetchGamesFromApi(genreName.genreName, genreName.quearySearch);
+  const data = yield fetchScreenshotsFromApi(name);
+  yield put(setScreenshots(data));
+}
+
+function* fetchGamesWorker(genreName: any, quearySearch: any, pageNumber: any) {
+  // @ts-ignore
+  const data = yield fetchGamesFromApi(
+    genreName.genreName,
+    genreName.quearySearch,
+    genreName.pageNumber,
+  );
+  console.log(genreName);
   yield put(setGames(data));
 }
 
@@ -53,6 +73,11 @@ function* fetchGenresWorker() {
   // @ts-ignore
   const data = yield call(fetchGenresFromApi);
   yield put(setGenres(data));
+}
+
+export function* screenshotsWatcher() {
+  // @ts-ignore
+  yield takeEvery(FETCH_SCREENSHOTS, fetchScreenshotsWorker);
 }
 
 export function* gamesWatcher() {

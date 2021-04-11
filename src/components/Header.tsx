@@ -1,8 +1,7 @@
 import React from 'react';
-
 import styled from 'styled-components';
-import { Search } from '.';
 
+import { Search } from '.';
 import { Container } from '../App';
 
 import userSvg from '../assets/images/user.svg';

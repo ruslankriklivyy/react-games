@@ -123,6 +123,20 @@ interface IGenres {
   results: Array<IGenresResults>;
 }
 
+interface IScreenshotsResults {
+  id: number;
+  image: string;
+  height: number;
+  width: number;
+  is_deleted: false;
+}
+interface IScreenshots {
+  count: number;
+  next: any;
+  previous: any;
+  results: Array<IScreenshotsResults>;
+}
+
 const initialState = {
   items: {} as IGames,
   gameId: null as number | null,
@@ -130,6 +144,8 @@ const initialState = {
   chosenGame: {} as IGameItem,
   genreName: null as string | null,
   querySearch: '' as string,
+  screenshots: {} as IScreenshots,
+  currentPage: 1 as number,
 };
 
 export type InitialState = typeof initialState;
@@ -140,9 +156,12 @@ const SET_GENRE_NAME = 'SET_GENRE_NAME';
 const SET_QUERY_SEARCH = 'SET_QUERY_SEARCH';
 const SET_GAME_ID = 'SET_GAME_ID';
 const SET_CHOSEN_GAME = 'SET_CHOSEN_GAME';
+const SET_SCREENSHOTS = 'SET_SCREENSHOTS';
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 export const FETCH_ITEMS = 'FETCH_ITEMS';
 export const FETCH_GENRES = 'FETCH_GENRES';
 export const FETCH_ONE_GAME = 'FETCH_ONE_GAME';
+export const FETCH_SCREENSHOTS = 'FETCH_SCREENSHOTS';
 
 export const gamesReducer = (state = initialState, action: any): InitialState => {
   switch (action.type) {
@@ -150,6 +169,18 @@ export const gamesReducer = (state = initialState, action: any): InitialState =>
       return {
         ...state,
         items: action.payload,
+      };
+
+    case SET_CURRENT_PAGE:
+      return {
+        ...state,
+        currentPage: action.payload,
+      };
+
+    case SET_SCREENSHOTS:
+      return {
+        ...state,
+        screenshots: action.payload,
       };
 
     case SET_GENRES:
@@ -187,6 +218,11 @@ export const gamesReducer = (state = initialState, action: any): InitialState =>
   }
 };
 
+export const setCurrentPage = (pageNumber: number) => ({
+  type: SET_CURRENT_PAGE,
+  payload: pageNumber,
+});
+export const setScreenshots = (obj: any) => ({ type: SET_SCREENSHOTS, payload: obj });
 export const setGames = (items: IGames) => ({ type: SET_ITEMS, payload: items });
 export const setGenres = (genres: IGenres) => ({ type: SET_GENRES, payload: genres });
 export const setGenreName = (genreName: string) => ({ type: SET_GENRE_NAME, payload: genreName });
@@ -196,10 +232,16 @@ export const setQuearySearch = (quearySearch: string | null) => ({
   type: SET_QUERY_SEARCH,
   payload: quearySearch,
 });
-export const fetchGames = (genreName: string | null, quearySearch: string | null) => ({
+export const fetchGames = (
+  genreName: string | null,
+  quearySearch: string | null,
+  pageNumber: number,
+) => ({
   type: FETCH_ITEMS,
   genreName: genreName,
   quearySearch: quearySearch,
+  pageNumber: pageNumber,
 });
 export const fetchGenres = () => ({ type: FETCH_GENRES });
 export const fetchOneGame = (gameId: number | null) => ({ type: FETCH_ONE_GAME, payload: gameId });
+export const fecthScreenshots = (name: string) => ({ type: FETCH_SCREENSHOTS, payload: name });
