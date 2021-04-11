@@ -21,8 +21,8 @@ const SearchWrapper = styled.div`
     font-weight: 400;
     background-color: rgba(78, 79, 81, 0.4);
     border: none;
-    padding: 5px 13px;
-    border-radius: 3px;
+    padding: 5px 20px;
+    border-radius: 25px;
     color: #fff;
     outline: none;
     transition: all 0.2s ease;
@@ -41,7 +41,7 @@ const SearchWrapper = styled.div`
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
-    right: 10px;
+    right: 20px;
     width: 18px;
     height: 18px;
   }

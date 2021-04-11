@@ -13,6 +13,10 @@ const ButtonMain = styled.button`
   font-weight: 500;
   border-radius: 30px;
   cursor: pointer;
+  transition: all 0.1s ease;
+  &:active {
+    transform: translateY(5px);
+  }
 `;
 
 interface IButton {

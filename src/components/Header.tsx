@@ -48,7 +48,7 @@ const GameLists = styled.span`
   background-color: transparent;
   border: 2px solid #0581aa;
   padding: 8px 20px;
-  border-radius: 7px;
+  border-radius: 20px;
   transition: all 0.2s ease;
   &:hover {
     opacity: 0.8;

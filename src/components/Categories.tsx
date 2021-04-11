@@ -14,7 +14,7 @@ const CategoriesWrapper = styled.div`
 const CategoriesMenu = styled.div`
   background-color: #22272b;
   padding-top: 12px;
-  border-radius: 5px;
+  border-radius: 25px;
   ul {
     display: flex;
     justify-content: center;
@@ -30,12 +30,13 @@ const CategoriesMenu = styled.div`
         z-index: 5;
         width: 100%;
         height: 100%;
+        text-align: center;
         display: flex;
         align-items: center;
         justify-content: center;
         color: #fff;
         font-weight: 500;
-        font-size: 21px;
+        font-size: 18px;
         opacity: 0.8;
         transition: all 0.2s ease;
         &:hover {
@@ -52,17 +53,20 @@ const CategoriesItem = styled.div`
   height: 55px;
   margin-right: 25px;
   margin-bottom: 25px;
-  border-radius: 7px;
-  transition: all 0.2s ease;
+  border-radius: 25px;
+  transition: all 0.1s ease;
   border: 2px solid transparent;
   ${(props: IProps) =>
     props.active ? 'border: 2px solid #0581aa' : 'border: 2px solid transparent'};
   &:hover {
     border: 2px solid #0581aa;
   }
+  &:active {
+    transform: translateY(5px);
+  }
 
   img {
-    border-radius: 7px;
+    border-radius: 25px;
     display: block;
     object-fit: cover;
     opacity: 0.3;

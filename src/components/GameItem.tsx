@@ -13,7 +13,7 @@ const GamesItem = styled.div`
   width: 23%;
   margin-bottom: 32px;
   min-height: 450px;
-  border-radius: 5px;
+  border-radius: 25px;
   background-color: #22272b;
   opacity: 0.8;
   transition: all 0.3s ease;
@@ -28,8 +28,8 @@ const GamesImg = styled.div`
   height: 300px;
 
   img {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
     display: block;
     width: 100%;
     height: 100%;
@@ -52,15 +52,22 @@ const GamesInfoBottom = styled.div`
     display: flex;
     justify-content: center;
     margin-left: auto;
-    bottom: 15px;
-    right: 0;
+    margin-top: 10px;
     width: 50%;
     height: 40px;
-    border-radius: 15px;
+    border-radius: 35px;
+    background-color: transparent;
+    border: 2px solid #0581aa;
+    &:active {
+      img {
+        transform: rotate(-180deg);
+      }
+    }
     img {
       width: 20px;
       height: 20px;
       margin-left: 10px;
+      transition: all 0.2s ease;
     }
   }
 `;

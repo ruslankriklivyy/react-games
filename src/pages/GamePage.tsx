@@ -72,7 +72,7 @@ const GamePageRight = styled.div`
     width: 220px;
     height: 50px;
     font-size: 17px;
-    border-radius: 7px;
+    border-radius: 25px;
     transition: all 0.2s ease;
     &:hover {
       opacity: 0.8;
@@ -202,7 +202,7 @@ const Back = styled.div`
   left: 0;
   z-index: 990;
   width: 130px;
-  height: 40px;
+  height: 45px;
 
   a {
     opacity: 0.7;
@@ -211,11 +211,11 @@ const Back = styled.div`
     justify-content: center;
     width: 100%;
     height: 100%;
-    border-bottom-right-radius: 8px;
-    border-top-right-radius: 8px;
-    border: 2px solid #22272b;
+    background-color: rgba(78, 79, 81, 0.4);
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
     border-left: none;
-    font-size: 20px;
+    font-size: 18px;
     color: #fff;
     transition: all 0.2s ease;
     &:hover {
@@ -231,8 +231,28 @@ const Back = styled.div`
 
 const GamePageScreenshots = styled.div`
   padding-bottom: 40px;
+  .iiz {
+    margin: 0 15px;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .iiz__btn {
+    border-radius: 10px;
+  }
+  .iiz__btn .iiz__hint {
+    display: none;
+    &::before {
+      display: none;
+    }
+  }
   img {
+    display: block;
     object-fit: cover;
+    border: 2px solid #535353;
+    border-radius: 15px;
   }
   .slick-dots {
     li {
