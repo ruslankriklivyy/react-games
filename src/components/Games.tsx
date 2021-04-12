@@ -13,7 +13,8 @@ const GamesWrapper = styled.div`
   margin-top: 80px;
   .react-reveal {
     width: 325px;
-    min-height: 440px;
+    height: 480px;
+    margin-bottom: 25px;
   }
 `;
 

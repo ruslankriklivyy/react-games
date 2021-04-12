@@ -13,7 +13,7 @@ import gameDefaultJpg from '../assets/images/game-default.jpg';
 const GamesItem = styled.div`
   width: 100%;
   margin-bottom: 32px;
-  min-height: 100%;
+  height: 100%;
   border-radius: 25px;
   background-color: #22272b;
   opacity: 0.8;
@@ -50,6 +50,9 @@ const GamesInfo = styled.div`
 const GamesInfoBottom = styled.div`
   padding-top: 20px;
   button {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
     display: flex;
     justify-content: center;
     margin-left: auto;
