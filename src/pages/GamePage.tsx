@@ -3,16 +3,16 @@ import Fade from 'react-reveal/Fade';
 import Slider from 'react-slick';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { fecthScreenshots, fetchOneGame } from '../redux/gamesReducer';
+import { fecthScreenshots, fetchOneGame, IGameItem } from '../redux/gamesReducer';
 import { RootState } from '../redux/store';
-import { Link } from 'react-router-dom';
+
 import InnerImageZoom from 'react-inner-image-zoom';
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css';
 
 import linkSvg from '../assets/images/link.svg';
 import plusSvg from '../assets/images/plus.svg';
 import epicGamesPng from '../assets/images/epicGames.png';
-import backSvg from '../assets/images/back.svg';
+
 import starSvg from '../assets/images/star.svg';
 import appStorePng from '../assets/images/app-store.png';
 import googlePlayPng from '../assets/images/google-play.png';
@@ -22,8 +22,9 @@ import steamPng from '../assets/images/steam.png';
 import gogPng from '../assets/images/gog.png';
 import playstationPng from '../assets/images/playstation.png';
 import nintendoPng from '../assets/images/nintendo.png';
-import { Button } from '../components';
+import { Back, Button } from '../components';
 import scrollTop from '../utils/scrollTop';
+import { addItemToList } from '../redux/listReducer';
 
 const GamePageBlock = styled.div`
   position: relative;
@@ -196,45 +197,14 @@ const GamePageStores = styled.div`
   }
 `;
 
-const Back = styled.div`
-  position: fixed;
-  top: 25px;
-  left: 0;
-  z-index: 990;
-  width: 130px;
-  height: 45px;
-
-  a {
-    opacity: 0.7;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(78, 79, 81, 0.4);
-    border-bottom-right-radius: 20px;
-    border-top-right-radius: 20px;
-    border-left: none;
-    font-size: 18px;
-    color: #fff;
-    transition: all 0.2s ease;
-    &:hover {
-      opacity: 1;
-    }
-  }
-  img {
-    margin-left: 20px;
-    width: 20px;
-    height: 20px;
-  }
-`;
-
 const GamePageScreenshots = styled.div`
   padding-bottom: 40px;
   .iiz {
+    display: block;
     margin: 0 15px;
     opacity: 0.8;
     transition: opacity 0.2s ease;
+    max-width: 800px;
     &:hover {
       opacity: 1;
     }
@@ -249,7 +219,6 @@ const GamePageScreenshots = styled.div`
     }
   }
   img {
-    display: block;
     object-fit: cover;
     border: 2px solid #535353;
     border-radius: 15px;
@@ -287,6 +256,10 @@ const GamePage = () => {
   const chosenGame = useSelector((state: RootState) => state.gamesReducer.chosenGame);
   const gameId = useSelector((state: RootState) => state.gamesReducer.gameId);
   const screenshots = useSelector((state: RootState) => state.gamesReducer.screenshots);
+
+  const onAddToList = (obj: IGameItem) => {
+    dispatch(addItemToList(obj));
+  };
 
   const generateLinks = React.useCallback(
     (arr: any) => {
@@ -328,12 +301,7 @@ const GamePage = () => {
   return (
     chosenGame && (
       <>
-        <Back>
-          <Link to="/">
-            Back
-            <img src={backSvg} alt="back svg" />
-          </Link>
-        </Back>
+        <Back />
         <Fade left>
           <GamePageBlock>
             <GamePageBlur
@@ -396,7 +364,7 @@ const GamePage = () => {
                             ),
                         )}
                     </GamePageStores>
-                    <Button>
+                    <Button onClick={() => onAddToList(chosenGame)}>
                       Add to list <img src={plusSvg} alt="plus svg" />
                     </Button>
                   </Fade>
@@ -408,7 +376,14 @@ const GamePage = () => {
                 {screenshots.results &&
                   screenshots.results.length > 0 &&
                   screenshots.results.map((item) => (
-                    <InnerImageZoom src={item.image} zoomSrc={item.image} alt="screen game" />
+                    <InnerImageZoom
+                      width={600}
+                      height={320}
+                      zoomType={'click'}
+                      src={item.image}
+                      zoomSrc={item.image}
+                      alt="screen game"
+                    />
                   ))}
               </Slider>
             </GamePageScreenshots>

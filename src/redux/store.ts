@@ -3,12 +3,14 @@ import createSagaMiddleware from 'redux-saga';
 import { rootWatcher } from './saga/index';
 import { userReducer } from '../redux/userReducer';
 import { gamesReducer } from '../redux/gamesReducer';
+import { listReducer } from '../redux/listReducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers({
   userReducer,
   gamesReducer,
+  listReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

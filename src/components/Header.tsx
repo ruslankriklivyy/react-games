@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Search } from '.';
+import { GameListsLink, Search } from '.';
 import { Container } from '../App';
 
 import userSvg from '../assets/images/user.svg';
@@ -40,21 +40,6 @@ const User = styled.div`
   }
 `;
 
-const GameLists = styled.span`
-  font-size: 17px;
-  margin-right: 25px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  background-color: transparent;
-  border: 2px solid #0581aa;
-  padding: 8px 20px;
-  border-radius: 20px;
-  transition: all 0.2s ease;
-  &:hover {
-    opacity: 0.8;
-  }
-`;
-
 const Header = () => {
   return (
     <HeaderMain>
@@ -62,7 +47,7 @@ const Header = () => {
         <HeaderBlock>
           <Search />
           <User>
-            <GameLists>My game list</GameLists>
+            <GameListsLink />
             <button>
               <img src={userSvg} alt="user svg" />
             </button>

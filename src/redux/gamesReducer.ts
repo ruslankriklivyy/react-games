@@ -54,7 +54,7 @@ interface IPublishers {
   slug: string;
 }
 
-interface IGameItem {
+export interface IGameItem {
   added: number;
   added_by_status: any;
   background_image: string;
@@ -92,7 +92,7 @@ interface IGameItem {
   user_game: any;
 }
 
-interface IGames {
+export interface IGames {
   count: number;
   description: string;
   filters: object;
@@ -146,10 +146,13 @@ const initialState = {
   querySearch: '' as string,
   screenshots: {} as IScreenshots,
   currentPage: 1 as number,
+  orderBy: 'Metacritic' as string,
+  isLoadingGames: false as boolean,
 };
 
 export type InitialState = typeof initialState;
 
+const SET_IS_LOADING_GAMES = 'SET_IS_LOADING_GAMES';
 const SET_ITEMS = 'SET_ITEMS';
 const SET_GENRES = 'SET_GENRES';
 const SET_GENRE_NAME = 'SET_GENRE_NAME';
@@ -158,6 +161,7 @@ const SET_GAME_ID = 'SET_GAME_ID';
 const SET_CHOSEN_GAME = 'SET_CHOSEN_GAME';
 const SET_SCREENSHOTS = 'SET_SCREENSHOTS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+const SET_ORDER_TYPE = 'SET_ORDER_TYPE';
 export const FETCH_ITEMS = 'FETCH_ITEMS';
 export const FETCH_GENRES = 'FETCH_GENRES';
 export const FETCH_ONE_GAME = 'FETCH_ONE_GAME';
@@ -169,6 +173,18 @@ export const gamesReducer = (state = initialState, action: any): InitialState =>
       return {
         ...state,
         items: action.payload,
+      };
+
+    case SET_IS_LOADING_GAMES:
+      return {
+        ...state,
+        isLoadingGames: action.payload,
+      };
+
+    case SET_ORDER_TYPE:
+      return {
+        ...state,
+        orderBy: action.payload,
       };
 
     case SET_CURRENT_PAGE:
@@ -222,6 +238,11 @@ export const setCurrentPage = (pageNumber: number) => ({
   type: SET_CURRENT_PAGE,
   payload: pageNumber,
 });
+export const setIsLoadingGames = (isLoading: boolean) => ({
+  type: SET_IS_LOADING_GAMES,
+  payload: isLoading,
+});
+export const setOrderBy = (orderBy: string) => ({ type: SET_ORDER_TYPE, payload: orderBy });
 export const setScreenshots = (obj: any) => ({ type: SET_SCREENSHOTS, payload: obj });
 export const setGames = (items: IGames) => ({ type: SET_ITEMS, payload: items });
 export const setGenres = (genres: IGenres) => ({ type: SET_GENRES, payload: genres });
@@ -236,11 +257,13 @@ export const fetchGames = (
   genreName: string | null,
   quearySearch: string | null,
   pageNumber: number,
+  orderBy: string,
 ) => ({
   type: FETCH_ITEMS,
   genreName: genreName,
   quearySearch: quearySearch,
   pageNumber: pageNumber,
+  orderBy: orderBy,
 });
 export const fetchGenres = () => ({ type: FETCH_GENRES });
 export const fetchOneGame = (gameId: number | null) => ({ type: FETCH_ONE_GAME, payload: gameId });

@@ -21,10 +21,11 @@ const ButtonMain = styled.button`
 
 interface IButton {
   children: React.ReactChild | React.ReactNode;
+  onClick?: React.ReactEventHandler;
 }
 
-const Button: React.FC<IButton> = ({ children }) => {
-  return <ButtonMain>{children}</ButtonMain>;
+const Button: React.FC<IButton> = ({ children, onClick }) => {
+  return <ButtonMain onClick={onClick}>{children}</ButtonMain>;
 };
 
 export default Button;

@@ -2,8 +2,8 @@ import React from 'react';
 import { Route } from 'react-router';
 import styled, { createGlobalStyle } from 'styled-components';
 
-import { Categories, Games, Header } from './components';
-import { GamePage } from './pages';
+import { Categories, Games, Header, SortBy } from './components';
+import { GamePage, ListPage } from './pages';
 
 const GlobalStyles = createGlobalStyle`
 *{
@@ -45,7 +45,9 @@ function App() {
       <div className="App">
         <Route path="/" component={Header} />
         <Route exact path="/" component={Categories} />
+        <Route exact path="/" component={SortBy} />
         <Route exact path="/" component={Games} />
+        <Route exact path="/list" component={ListPage} />
         <Route exact path="/game" component={GamePage} />
       </div>
     </>

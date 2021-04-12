@@ -14,6 +14,7 @@
     "@types/styled-components": "^5.1.9",
     "axios": "^0.21.1",
     "react": "^17.0.2",
+    "react-content-loader": "^6.0.3",
     "react-dom": "^17.0.2",
     "react-inner-image-zoom": "^2.0.1",
     "react-redux": "^7.2.3",

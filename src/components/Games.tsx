@@ -2,15 +2,19 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { fetchGames, setCurrentPage, setGameId } from '../redux/gamesReducer';
+import { fetchGames, setCurrentPage, setGameId, setIsLoadingGames } from '../redux/gamesReducer';
 import { RootState } from '../redux/store';
 
 import { Container } from '../App';
-import { GameItem, Paginator } from '.';
+import { GameItem, GameItemLoader, Paginator } from '.';
 import scrollTop from '../utils/scrollTop';
 
 const GamesWrapper = styled.div`
   margin-top: 80px;
+  .react-reveal {
+    width: 325px;
+    min-height: 440px;
+  }
 `;
 
 const GamesMain = styled.div`
@@ -22,11 +26,10 @@ const GamesMain = styled.div`
 
 const Games = () => {
   const dispatch = useDispatch();
-  const items = useSelector((state: RootState) => state.gamesReducer.items);
+  const { items, orderBy, genreName, querySearch, currentPage, isLoadingGames } = useSelector(
+    (state: RootState) => state.gamesReducer,
+  );
   const totalCount = useSelector((state: RootState) => state.gamesReducer.items.count);
-  const genreName = useSelector((state: RootState) => state.gamesReducer.genreName);
-  const querySearch = useSelector((state: RootState) => state.gamesReducer.querySearch);
-  const currentPage = useSelector((state: RootState) => state.gamesReducer.currentPage);
 
   const onSelectGameId = (id: number) => {
     dispatch(setGameId(id));
@@ -38,16 +41,22 @@ const Games = () => {
   };
 
   React.useEffect(() => {
-    dispatch(fetchGames(genreName, querySearch, currentPage));
-  }, [dispatch, genreName, querySearch, currentPage]);
+    dispatch(setIsLoadingGames(false));
+    dispatch(fetchGames(genreName, querySearch, currentPage, orderBy));
+    dispatch(setIsLoadingGames(true));
+  }, [dispatch, genreName, querySearch, currentPage, orderBy]);
 
   return (
     <GamesWrapper>
       <Container>
         <GamesMain>
-          {items &&
-            items.results &&
-            items.results.map((obj) => <GameItem onSelectGameId={onSelectGameId} {...obj} />)}
+          {isLoadingGames
+            ? items &&
+              items.results &&
+              items.results.map((obj) => <GameItem onSelectGameId={onSelectGameId} {...obj} />)
+            : Array(20)
+                .fill(0)
+                .map((_, index) => <GameItemLoader key={index} />)}
         </GamesMain>
         <Paginator currentPage={currentPage} totalPages={totalCount} onSelectPage={onSelectPage} />
       </Container>

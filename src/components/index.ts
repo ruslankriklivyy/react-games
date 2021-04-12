@@ -5,3 +5,7 @@ export { default as Button } from './Button';
 export { default as GameItem } from './GameItem';
 export { default as Search } from './Search';
 export { default as Paginator } from './Paginator';
+export { default as SortBy } from './SortBy';
+export { default as GameItemLoader } from './GameItemLoader';
+export { default as GameListsLink } from './GameListsLink';
+export { default as Back } from './Back';

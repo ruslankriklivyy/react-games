@@ -8,11 +8,12 @@ import { IPlatforms } from '../redux/gamesReducer';
 
 import starSvg from '../assets/images/star.svg';
 import arrowSvg from '../assets/images/arrow.svg';
+import gameDefaultJpg from '../assets/images/game-default.jpg';
 
 const GamesItem = styled.div`
-  width: 23%;
+  width: 100%;
   margin-bottom: 32px;
-  min-height: 450px;
+  min-height: 100%;
   border-radius: 25px;
   background-color: #22272b;
   opacity: 0.8;
@@ -58,7 +59,7 @@ const GamesInfoBottom = styled.div`
     border-radius: 35px;
     background-color: transparent;
     border: 2px solid #0581aa;
-    &:active {
+    &:hover {
       img {
         transform: rotate(-180deg);
       }
@@ -111,7 +112,7 @@ interface IGameItem {
   rating: number;
   released: string;
   parent_platforms: Array<IPlatforms>;
-  onSelectGameId: (id: number) => void;
+  onSelectGameId?: (id: number) => void;
 }
 
 const GameItem: React.FC<IGameItem> = ({
@@ -124,10 +125,10 @@ const GameItem: React.FC<IGameItem> = ({
   onSelectGameId,
 }) => {
   return (
-    <GamesItem key={id}>
-      <Fade bottom>
+    <Fade bottom>
+      <GamesItem key={id}>
         <GamesImg>
-          <img src={background_image} alt="game img" />
+          <img src={!background_image ? gameDefaultJpg : background_image} alt="game img" />
         </GamesImg>
         <GamesInfo>
           <h4>{name}</h4>
@@ -143,15 +144,15 @@ const GameItem: React.FC<IGameItem> = ({
               </GamesPlatform>
             </GamesTop>
             <GamesReleased>{released}</GamesReleased>
-            <Link to="/game" onClick={() => onSelectGameId(id)}>
+            <Link to="/game" onClick={() => onSelectGameId && onSelectGameId(id)}>
               <Button>
                 More Info <img src={arrowSvg} alt="arrow svg" />
               </Button>
             </Link>
           </GamesInfoBottom>
         </GamesInfo>
-      </Fade>
-    </GamesItem>
+      </GamesItem>
+    </Fade>
   );
 };
 

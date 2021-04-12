@@ -35,12 +35,19 @@ const fetchGenresFromApi = () =>
     return data;
   });
 
-const fetchGamesFromApi = (genreName: string, quearySearch: string, pageNumber: number) =>
+const fetchGamesFromApi = (
+  genreName: string,
+  quearySearch: string,
+  pageNumber: number,
+  orderBy: string,
+) =>
   games
     .get(
       `games?key=722c9d0913da4424a89ab6e326074614${
         quearySearch !== '' ? `&search=${quearySearch}` : ''
-      }${genreName !== null ? `&genres=${genreName}` : ''}&page=${pageNumber}`,
+      }${
+        genreName !== null ? `&genres=${genreName}` : ''
+      }&ordering=-${orderBy.toLowerCase()}&page=${pageNumber}`,
     )
     .then(({ data }) => {
       return data;
@@ -52,14 +59,14 @@ function* fetchScreenshotsWorker(name: string) {
   yield put(setScreenshots(data));
 }
 
-function* fetchGamesWorker(genreName: any, quearySearch: any, pageNumber: any) {
+function* fetchGamesWorker(action: any) {
   // @ts-ignore
   const data = yield fetchGamesFromApi(
-    genreName.genreName,
-    genreName.quearySearch,
-    genreName.pageNumber,
+    action.genreName,
+    action.quearySearch,
+    action.pageNumber,
+    action.orderBy,
   );
-  console.log(genreName);
   yield put(setGames(data));
 }
 
