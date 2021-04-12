@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { Container } from '../App';
+import { removeItemToList } from '../redux/listReducer';
 import { Back, GameItem } from '../components';
 import { RootState } from '../redux/store';
 
 import removeSvg from '../assets/images/remove.svg';
-import { removeItemToList } from '../redux/listReducer';
+import emptySvg from '../assets/images/empty.svg';
 
 const RemoveItem = styled.div`
   display: flex;
@@ -57,6 +58,20 @@ const GameWrapper = styled.div`
   }
 `;
 
+const Empty = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  img {
+    display: block;
+    margin: 0 auto;
+    width: 600px;
+    height: 700px;
+  }
+`;
+
 const ListPage = () => {
   const dispatch = useDispatch();
   const items = useSelector((state: RootState) => state.listReducer.listItems);
@@ -70,21 +85,27 @@ const ListPage = () => {
       <Back />
       <Container>
         <ListPageBox>
-          {items.map((obj) => (
-            <GameWrapper key={obj.id}>
-              <RemoveItem onClick={() => onRemoveItem(obj.id)}>
-                <img src={removeSvg} alt="remove svg" />
-              </RemoveItem>
-              <GameItem
-                id={obj.id}
-                background_image={obj.background_image}
-                name={obj.name}
-                rating={obj.rating}
-                released={obj.released}
-                parent_platforms={obj.parent_platforms}
-              />
-            </GameWrapper>
-          ))}
+          {items.length > 0 ? (
+            items.map((obj) => (
+              <GameWrapper key={obj.id}>
+                <RemoveItem onClick={() => onRemoveItem(obj.id)}>
+                  <img src={removeSvg} alt="remove svg" />
+                </RemoveItem>
+                <GameItem
+                  id={obj.id}
+                  background_image={obj.background_image}
+                  name={obj.name}
+                  rating={obj.rating}
+                  released={obj.released}
+                  parent_platforms={obj.parent_platforms}
+                />
+              </GameWrapper>
+            ))
+          ) : (
+            <Empty>
+              <img src={emptySvg} alt="empty svg" />
+            </Empty>
+          )}
         </ListPageBox>
       </Container>
     </ListPageWrapper>
