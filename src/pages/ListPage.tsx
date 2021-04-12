@@ -45,8 +45,10 @@ const ListPageBox = styled.div`
 
 const GameWrapper = styled.div`
   width: 400px;
-  min-height: 600px;
   position: relative;
+  .react-reveal {
+    height: 480px;
+  }
   &:hover {
     ${RemoveItem} {
       visibility: visible;
