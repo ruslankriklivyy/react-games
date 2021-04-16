@@ -55,9 +55,9 @@ const CategoriesItem = styled.div`
   margin-bottom: 25px;
   border-radius: 25px;
   transition: all 0.1s ease;
-  border: 2px solid transparent;
   ${(props: IProps) =>
     props.active ? 'border: 2px solid #0581aa' : 'border: 2px solid transparent'};
+
   &:hover {
     border: 2px solid #0581aa;
   }
@@ -98,8 +98,7 @@ const Categories = () => {
       <Container>
         <CategoriesMenu>
           <ul>
-            {genres &&
-              genres.results &&
+            {genres?.results &&
               genres.results.map(({ name, id, slug, image_background }) => (
                 <li key={id}>
                   <CategoriesItem

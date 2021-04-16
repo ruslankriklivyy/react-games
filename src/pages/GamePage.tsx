@@ -125,6 +125,10 @@ const GamePageBlur = styled.div`
 `;
 
 const GamePageDescription = styled.p`
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   line-height: 1.3;
 `;
 
@@ -373,11 +377,10 @@ const GamePage = () => {
             </GamePageWrapper>
             <GamePageScreenshots>
               <Slider {...settings}>
-                {screenshots.results &&
-                  screenshots.results.length > 0 &&
+                {screenshots?.results &&
                   screenshots.results.map((item) => (
                     <InnerImageZoom
-                      width={600}
+                      min-width={500}
                       height={320}
                       zoomType={'click'}
                       src={item.image}

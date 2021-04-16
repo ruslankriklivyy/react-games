@@ -9,7 +9,7 @@ const BackWrapper = styled.div`
   top: 25px;
   left: 0;
   z-index: 990;
-  width: 130px;
+  width: 50px;
   height: 45px;
 
   a {
@@ -23,15 +23,12 @@ const BackWrapper = styled.div`
     border-bottom-right-radius: 20px;
     border-top-right-radius: 20px;
     border-left: none;
-    font-size: 18px;
-    color: #fff;
     transition: all 0.2s ease;
     &:hover {
       opacity: 1;
     }
   }
   img {
-    margin-left: 20px;
     width: 20px;
     height: 20px;
   }
@@ -41,7 +38,6 @@ const Back = () => {
   return (
     <BackWrapper>
       <Link to="/">
-        Back
         <img src={backSvg} alt="back svg" />
       </Link>
     </BackWrapper>
