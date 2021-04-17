@@ -9,3 +9,5 @@ export { default as SortBy } from './SortBy';
 export { default as GameItemLoader } from './GameItemLoader';
 export { default as GameListsLink } from './GameListsLink';
 export { default as Back } from './Back';
+export { default as Auth } from './Auth';
+export { default as User } from './User';

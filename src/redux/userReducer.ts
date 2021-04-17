@@ -1,18 +1,30 @@
+interface IUser {
+  displayName: string;
+  photoURL: string;
+}
+
 const initialState = {
-  token: {} as object,
+  user: {} as IUser,
+  isAuth: false as boolean,
 };
 
 export type InitialState = typeof initialState;
 
-const SET_TOKEN = 'SET_TOKEN';
-export const FETCH_TOKEN = 'FETCH_TOKEN';
+const SET_USER = 'SET_USER';
+const SET_IS_AUTH = 'SET_IS_AUTH';
 
 export const userReducer = (state = initialState, action: any): InitialState => {
   switch (action.type) {
-    case SET_TOKEN:
+    case SET_USER:
       return {
         ...state,
-        token: action.payload,
+        user: action.payload,
+      };
+
+    case SET_IS_AUTH:
+      return {
+        ...state,
+        isAuth: action.payload,
       };
 
     default:
@@ -20,5 +32,5 @@ export const userReducer = (state = initialState, action: any): InitialState => 
   }
 };
 
-export const setToken = (token: any) => ({ type: SET_TOKEN, payload: token });
-export const fetchToken = () => ({ type: FETCH_TOKEN });
+export const setUser = (user: any) => ({ type: SET_USER, payload: user });
+export const setIsAuth = (isAuth: boolean) => ({ type: SET_IS_AUTH, payload: isAuth });

@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { GameListsLink, Search } from '.';
+import { Search, User } from '.';
 import { Container } from '../App';
-
-import userSvg from '../assets/images/user.svg';
 
 const HeaderMain = styled.div`
   position: absolute;
@@ -23,35 +21,13 @@ const HeaderBlock = styled.div`
   justify-content: space-between;
 `;
 
-const User = styled.div`
-  display: flex;
-  align-items: center;
-  button {
-    width: 33px;
-    height: 33px;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-`;
-
 const Header = () => {
   return (
     <HeaderMain>
       <Container>
         <HeaderBlock>
           <Search />
-          <User>
-            <GameListsLink />
-            <button>
-              <img src={userSvg} alt="user svg" />
-            </button>
-          </User>
+          <User />
         </HeaderBlock>
       </Container>
     </HeaderMain>
