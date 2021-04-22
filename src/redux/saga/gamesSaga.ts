@@ -1,37 +1,36 @@
 import { put, takeEvery, call } from 'redux-saga/effects';
-import {
-  FETCH_ITEMS,
-  FETCH_GENRES,
-  setGenres,
-  setGames,
-  setChosenGame,
-  FETCH_ONE_GAME,
-  setScreenshots,
-  FETCH_SCREENSHOTS,
-} from '../gamesReducer';
+import { FETCH_ITEMS, FETCH_GENRES, FETCH_ONE_GAME, FETCH_SCREENSHOTS } from '../reducers/games';
 
 import axios from 'axios';
+import {
+  FecthScreenshots,
+  FetchGames,
+  FetchOneGame,
+  setChosenGame,
+  setGames,
+  setGenres,
+  setScreenshots,
+} from '../actions/games';
+import { IGameItem, IGames, IGenres, IScreenshots } from '../../interfaces/interfaces';
 
-// @ts-ignore
 const games = axios.create({
   baseURL: 'https://api.rawg.io/api/',
 });
 
-const fetchScreenshotsFromApi = (name: any) =>
+const fetchScreenshotsFromApi = (action: FecthScreenshots) =>
   games
-    .get(`games/${name.payload}/screenshots?key=722c9d0913da4424a89ab6e326074614`)
+    .get(`games/${action.payload}/screenshots?key=722c9d0913da4424a89ab6e326074614`)
     .then(({ data }) => {
       return data;
     });
 
-const fetchOneGameFromApi = (id: number) =>
+const fetchOneGameFromApi = (id: number | null) =>
   games.get(`games/${id}?key=722c9d0913da4424a89ab6e326074614`).then(({ data }) => {
     return data;
   });
 
 const fetchGenresFromApi = () =>
   games.get('genres?key=722c9d0913da4424a89ab6e326074614').then(({ data }) => {
-    console.log(data);
     return data;
   });
 
@@ -46,54 +45,44 @@ const fetchGamesFromApi = (
       `games?key=722c9d0913da4424a89ab6e326074614${
         quearySearch !== '' ? `&search=${quearySearch}` : ''
       }${
-        genreName !== null ? `&genres=${genreName}` : ''
+        genreName !== '' ? `&genres=${genreName}` : ''
       }&ordering=-${orderBy.toLowerCase()}&page=${pageNumber}`,
     )
     .then(({ data }) => {
       return data;
     });
 
-function* fetchScreenshotsWorker(name: string) {
-  // @ts-ignore
-  const data = yield fetchScreenshotsFromApi(name);
+function* fetchScreenshotsWorker(action: FecthScreenshots) {
+  const data: IScreenshots = yield fetchScreenshotsFromApi(action);
   yield put(setScreenshots(data));
 }
 
-function* fetchGamesWorker(action: any) {
-  // @ts-ignore
-  const data = yield fetchGamesFromApi(
-    action.genreName,
-    action.quearySearch,
-    action.pageNumber,
-    action.orderBy,
-  );
+function* fetchGamesWorker(action: FetchGames) {
+  const { genreName, quearySearch, pageNumber, orderBy } = action;
+
+  const data: IGames = yield fetchGamesFromApi(genreName, quearySearch, pageNumber, orderBy);
   yield put(setGames(data));
 }
 
-function* fetchOneGameWorker(id: any) {
-  // @ts-ignore
-  const data = yield fetchOneGameFromApi(id.payload);
+function* fetchOneGameWorker(action: FetchOneGame) {
+  const data: IGameItem = yield fetchOneGameFromApi(action.payload);
   yield put(setChosenGame(data));
 }
 
 function* fetchGenresWorker() {
-  // @ts-ignore
-  const data = yield call(fetchGenresFromApi);
+  const data: IGenres = yield call(fetchGenresFromApi);
   yield put(setGenres(data));
 }
 
 export function* screenshotsWatcher() {
-  // @ts-ignore
   yield takeEvery(FETCH_SCREENSHOTS, fetchScreenshotsWorker);
 }
 
 export function* gamesWatcher() {
-  // @ts-ignore
   yield takeEvery(FETCH_ITEMS, fetchGamesWorker);
 }
 
 export function* oneGameWatcher() {
-  // @ts-ignore
   yield takeEvery(FETCH_ONE_GAME, fetchOneGameWorker);
 }
 

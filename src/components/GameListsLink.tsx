@@ -42,7 +42,7 @@ const GameListsLink = () => {
   return (
     <GameLists>
       <Link to="/list">
-        My game list <span>{items && items.length >= 0 ? items.length : 0}</span>
+        My game list <span>{items?.length >= 0 ? items.length : 0}</span>
       </Link>
     </GameLists>
   );

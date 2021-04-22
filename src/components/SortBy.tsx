@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Container } from '../App';
 
 import downArrowSvg from '../assets/images/down-arrow.svg';
-import { setOrderBy } from '../redux/gamesReducer';
+import { setOrderBy } from '../redux/actions/games';
 import { RootState } from '../redux/store';
 
 const SortByHandle = styled.div`
@@ -36,6 +36,8 @@ const SortByWrapper = styled.div`
 `;
 
 const SortByType = styled.div`
+  position: relative;
+  z-index: 20;
   letter-spacing: 1px;
   font-size: 19px;
   display: flex;
@@ -50,24 +52,25 @@ const SortByType = styled.div`
 
 const SortByBox = styled.div`
   position: absolute;
-  top: 40px;
   left: 0;
   z-index: 10;
   width: 100%;
-  min-height: 120px;
+  top: 40px;
   background-color: #22272b;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
+  transition: all 0.3s ease;
+  ${(props: SortByStylesProps) => (props.show ? 'height: 160px;' : 'height: 0;')};
 
   ul {
     margin: 0;
     padding: 10px 35px;
+    ${(props: SortByStylesProps) => (props.show ? 'visibility: visible;' : 'visibility: hidden')};
     li {
       letter-spacing: 1px;
       font-size: 17px;
       margin: 12px 0;
       opacity: 0.8;
-      transition: all 0.2s ease;
       &:hover {
         opacity: 1;
       }
@@ -77,6 +80,10 @@ const SortByBox = styled.div`
     }
   }
 `;
+
+interface SortByStylesProps {
+  show: boolean;
+}
 
 const sortByTypes = ['Metacritic', 'Released', 'Name', 'Rating'];
 
@@ -124,20 +131,18 @@ const SortBy = () => {
           </SortByType>
           <img src={downArrowSvg} className={visibleSortBy ? 'active' : ''} alt="down arrow svg" />
         </SortByHandle>
-        {visibleSortBy && (
-          <SortByBox>
-            <ul>
-              {sortByTypes.map((name, index) => (
-                <li
-                  key={index}
-                  className={name === sortBy ? 'active' : ''}
-                  onClick={() => onSelectOrderType(name)}>
-                  {name}
-                </li>
-              ))}
-            </ul>
-          </SortByBox>
-        )}
+        <SortByBox show={visibleSortBy}>
+          <ul>
+            {sortByTypes.map((name, index) => (
+              <li
+                key={index}
+                className={name === sortBy ? 'active' : ''}
+                onClick={() => onSelectOrderType(name)}>
+                {name}
+              </li>
+            ))}
+          </ul>
+        </SortByBox>
       </SortByWrapper>
     </Container>
   );

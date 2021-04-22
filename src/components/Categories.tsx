@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { fetchGenres, setGenreName } from '../redux/gamesReducer';
+import { fetchGenres, setGenreName } from '../redux/actions/games';
 import { RootState } from '../redux/store';
 
 import { Container } from '../App';

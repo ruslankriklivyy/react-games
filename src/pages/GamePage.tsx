@@ -3,7 +3,7 @@ import Fade from 'react-reveal/Fade';
 import Slider from 'react-slick';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { fecthScreenshots, fetchOneGame, IGameItem } from '../redux/gamesReducer';
+import { fecthScreenshots, fetchOneGame } from '../redux/actions/games';
 import { RootState } from '../redux/store';
 
 import InnerImageZoom from 'react-inner-image-zoom';
@@ -24,7 +24,8 @@ import playstationPng from '../assets/images/playstation.png';
 import nintendoPng from '../assets/images/nintendo.png';
 import { Back, Button } from '../components';
 import scrollTop from '../utils/scrollTop';
-import { addItemToList } from '../redux/listReducer';
+import { addItemToList } from '../redux/actions/list';
+import { IGameItem } from '../interfaces/interfaces';
 
 const GamePageBlock = styled.div`
   position: relative;
@@ -325,24 +326,22 @@ const GamePage = () => {
                         <img src={linkSvg} alt="link svg" />
                       </a>
                     </GamePageTitle>
-                    <GamePageDescription>
-                      {chosenGame.description && chosenGame.description_raw}
-                    </GamePageDescription>
+                    <GamePageDescription>{chosenGame.description_raw}</GamePageDescription>
                     <GamePageInfo>
                       <GamePageInfoItem>
                         <b>Released:</b> <span>{chosenGame.released}</span>
                       </GamePageInfoItem>
                       <GamePageInfoItem>
                         <b>Developers: </b>
-                        {chosenGame.developers &&
-                          chosenGame.developers.map(({ name, id }) => (
-                            <GamePageDevelopers key={id}>{name}</GamePageDevelopers>
-                          ))}
+                        {chosenGame.developers?.map(({ name, id }) => (
+                          <GamePageDevelopers key={id}>{name}</GamePageDevelopers>
+                        ))}
                       </GamePageInfoItem>
                       <GamePageInfoItem>
                         <b>Publishers: </b>
-                        {chosenGame.publishers &&
-                          chosenGame.publishers.map(({ name, id }) => <span key={id}>{name}</span>)}
+                        {chosenGame.publishers?.map(({ name, id }) => (
+                          <span key={id}>{name}</span>
+                        ))}
                       </GamePageInfoItem>
                     </GamePageInfo>
                     <GamePageInfoBottom>
@@ -351,10 +350,9 @@ const GamePage = () => {
                         {chosenGame.rating}
                       </GamePageRating>
                       <GamePagePlatforms>
-                        {chosenGame.platforms &&
-                          chosenGame.platforms.map((item) => (
-                            <GamePagePlatformsItem>{item.platform.name}</GamePagePlatformsItem>
-                          ))}
+                        {chosenGame.platforms?.map((item) => (
+                          <GamePagePlatformsItem>{item.platform.name}</GamePagePlatformsItem>
+                        ))}
                       </GamePagePlatforms>
                     </GamePageInfoBottom>
                     <GamePageStores>

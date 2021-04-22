@@ -29,6 +29,7 @@ const Paginator: React.FC<IPaginator> = ({ currentPage, totalPages, onSelectPage
   const perPage = 5;
   const countPages = Math.ceil(totalPages / perPage);
   const pages: Array<number> = [];
+
   createPages(pages, countPages, currentPage);
 
   return (

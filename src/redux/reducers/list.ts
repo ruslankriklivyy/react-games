@@ -1,4 +1,5 @@
-import { IGameItem } from './gamesReducer';
+import { IGameItem } from '../../interfaces/interfaces';
+import { Actions } from '../actions/list';
 
 const initialState = {
   listItems: [] as Array<IGameItem>,
@@ -9,7 +10,7 @@ export type InitialState = typeof initialState;
 const ADD_LIST_ITEM = 'ADD_LIST_ITEM';
 const REMOVE_LIST_ITEM = 'REMOVE_LIST_ITEM';
 
-export const listReducer = (state = initialState, action: any): InitialState => {
+export const listReducer = (state = initialState, action: Actions): InitialState => {
   switch (action.type) {
     case ADD_LIST_ITEM: {
       let newItems: Array<IGameItem> = [...state.listItems];
@@ -46,6 +47,3 @@ export const listReducer = (state = initialState, action: any): InitialState => 
       return state;
   }
 };
-
-export const addItemToList = (obj: IGameItem) => ({ type: ADD_LIST_ITEM, payload: obj });
-export const removeItemToList = (id: number) => ({ type: REMOVE_LIST_ITEM, payload: id });

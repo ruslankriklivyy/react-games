@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setQuearySearch } from '../redux/gamesReducer';
+import { setQuearySearch } from '../redux/actions/games';
 import { RootState } from '../redux/store';
 
 import searchSvg from '../assets/images/search.svg';

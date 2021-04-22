@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { Container } from '../App';
-import { removeItemToList } from '../redux/listReducer';
+import { removeItemToList } from '../redux/actions/list';
 import { Back, GameItem } from '../components';
 import { RootState } from '../redux/store';
 
@@ -45,6 +45,7 @@ const ListPageBox = styled.div`
 
 const GameWrapper = styled.div`
   width: 400px;
+  margin-bottom: 50px;
   position: relative;
   .react-reveal {
     height: 480px;

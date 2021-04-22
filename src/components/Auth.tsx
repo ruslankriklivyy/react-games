@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+
+import { githubProvider, googleProvider } from '../config/authMethods';
+import socialMediaAuth from '../service/auth';
+import { setIsAuth, setUser } from '../redux/actions/user';
 
 import closeSvg from '../assets/images/close.svg';
 import googleSvg from '../assets/images/google.svg';
 import githubSvg from '../assets/images/github.svg';
-import { githubProvider, googleProvider } from '../config/authMethods';
-import socialMediaAuth from '../service/auth';
-import { useDispatch } from 'react-redux';
-import { setIsAuth, setUser } from '../redux/userReducer';
 
 const AuthWrapper = styled.div`
   visibility: ${(props: IAuthStyled) => (props.show ? 'visible' : 'hidden')};
@@ -107,12 +108,13 @@ interface IAuth {
 const Auth: React.FC<IAuth> = ({ onVisible, show }) => {
   const dispatch = useDispatch();
 
-  const handleOnClick = async (provider: any) => {
+  const onHandleClick = async (provider: any) => {
     const res = await socialMediaAuth(provider);
-    console.log(res);
+
     dispatch(setIsAuth(false));
     dispatch(setUser(res[0]));
     dispatch(setIsAuth(true));
+
     onVisible();
   };
 
@@ -122,11 +124,11 @@ const Auth: React.FC<IAuth> = ({ onVisible, show }) => {
         <img src={closeSvg} alt="close svg" />
       </AuthClose>
       <h4>Login</h4>
-      <AuthLink onClick={() => handleOnClick(googleProvider)}>
+      <AuthLink onClick={() => onHandleClick(googleProvider)}>
         <img src={googleSvg} alt="google svg" />
         Sign in with google
       </AuthLink>
-      <AuthLink onClick={() => handleOnClick(githubProvider)}>
+      <AuthLink onClick={() => onHandleClick(githubProvider)}>
         <img src={githubSvg} alt="github svg" />
         Sign in with github
       </AuthLink>

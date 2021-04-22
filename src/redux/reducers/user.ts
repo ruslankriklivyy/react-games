@@ -1,7 +1,5 @@
-interface IUser {
-  displayName: string;
-  photoURL: string;
-}
+import { IUser } from '../../interfaces/interfaces';
+import { Actions } from '../actions/user';
 
 const initialState = {
   user: {} as IUser,
@@ -13,7 +11,7 @@ export type InitialState = typeof initialState;
 const SET_USER = 'SET_USER';
 const SET_IS_AUTH = 'SET_IS_AUTH';
 
-export const userReducer = (state = initialState, action: any): InitialState => {
+export const userReducer = (state = initialState, action: Actions): InitialState => {
   switch (action.type) {
     case SET_USER:
       return {
@@ -31,6 +29,3 @@ export const userReducer = (state = initialState, action: any): InitialState => 
       return state;
   }
 };
-
-export const setUser = (user: any) => ({ type: SET_USER, payload: user });
-export const setIsAuth = (isAuth: boolean) => ({ type: SET_IS_AUTH, payload: isAuth });

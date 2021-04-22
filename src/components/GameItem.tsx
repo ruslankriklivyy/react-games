@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Button } from '.';
-import { IPlatforms } from '../redux/gamesReducer';
 
 import starSvg from '../assets/images/star.svg';
 import arrowSvg from '../assets/images/arrow.svg';
 import gameDefaultJpg from '../assets/images/game-default.jpg';
+import { IPlatforms } from '../interfaces/interfaces';
 
 const GamesItem = styled.div`
   width: 100%;
@@ -141,8 +141,7 @@ const GameItem: React.FC<IGameItem> = ({
                 <img src={starSvg} alt="star svg" /> {rating}
               </GamesRating>
               <GamesPlatform>
-                {parent_platforms &&
-                  parent_platforms.length > 0 &&
+                {parent_platforms?.length > 0 &&
                   parent_platforms.slice(0, 3).map((item) => <span>{item.platform.name}</span>)}
               </GamesPlatform>
             </GamesTop>

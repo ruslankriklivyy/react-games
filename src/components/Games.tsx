@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { fetchGames, setCurrentPage, setGameId, setIsLoadingGames } from '../redux/gamesReducer';
+import { fetchGames, setCurrentPage, setGameId, setIsLoadingGames } from '../redux/actions/games';
 import { RootState } from '../redux/store';
 
 import { Container } from '../App';
@@ -52,9 +52,7 @@ const Games = () => {
       <Container>
         <GamesMain>
           {isLoadingGames
-            ? items &&
-              items.results &&
-              items.results.map((obj) => <GameItem onSelectGameId={onSelectGameId} {...obj} />)
+            ? items.results?.map((obj) => <GameItem onSelectGameId={onSelectGameId} {...obj} />)
             : Array(20)
                 .fill(0)
                 .map((_, index) => <GameItemLoader key={index} />)}
