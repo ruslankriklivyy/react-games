@@ -51,8 +51,9 @@ const CategoriesItem = styled.div`
   position: relative;
   width: 150px;
   height: 55px;
-  margin-right: 25px;
-  margin-bottom: 25px;
+  margin-right: 12px;
+  margin-left: 12px;
+  margin-bottom: 24px;
   border-radius: 25px;
   transition: all 0.1s ease;
   ${(props: IProps) =>
@@ -79,15 +80,18 @@ interface IProps {
   active: boolean;
 }
 
-const Categories = () => {
+const Categories = React.memo(() => {
   const dispatch = useDispatch();
   const genres = useSelector((state: RootState) => state.gamesReducer.genres);
   const genreName = useSelector((state: RootState) => state.gamesReducer.genreName);
 
-  const onSelectGenre = (genreName: string, e: React.MouseEvent) => {
-    e.preventDefault();
-    dispatch(setGenreName(genreName));
-  };
+  const onSelectGenre = React.useCallback(
+    (genreName: string, e: React.MouseEvent) => {
+      e.preventDefault();
+      dispatch(setGenreName(genreName));
+    },
+    [dispatch],
+  );
 
   React.useEffect(() => {
     dispatch(fetchGenres());
@@ -98,22 +102,21 @@ const Categories = () => {
       <Container>
         <CategoriesMenu>
           <ul>
-            {genres?.results &&
-              genres.results.map(({ name, id, slug, image_background }) => (
-                <li key={id}>
-                  <CategoriesItem
-                    active={genreName?.toLowerCase() === name.toLowerCase() ? true : false}
-                    onClick={(e: React.MouseEvent) => onSelectGenre(slug, e)}>
-                    <img src={image_background} alt="genre img" />
-                    <a href="/">{name}</a>
-                  </CategoriesItem>
-                </li>
-              ))}
+            {genres.results?.map(({ name, id, slug, image_background }) => (
+              <li key={id}>
+                <CategoriesItem
+                  active={genreName?.toLowerCase() === name.toLowerCase() ? true : false}
+                  onClick={(e: React.MouseEvent) => onSelectGenre(slug, e)}>
+                  <img src={image_background} alt="genre img" />
+                  <a href="/">{name}</a>
+                </CategoriesItem>
+              </li>
+            ))}
           </ul>
         </CategoriesMenu>
       </Container>
     </CategoriesWrapper>
   );
-};
+});
 
 export default Categories;

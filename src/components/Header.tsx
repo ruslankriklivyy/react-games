@@ -21,7 +21,7 @@ const HeaderBlock = styled.div`
   justify-content: space-between;
 `;
 
-const Header = () => {
+const Header = React.memo(() => {
   return (
     <HeaderMain>
       <Container>
@@ -32,6 +32,6 @@ const Header = () => {
       </Container>
     </HeaderMain>
   );
-};
+});
 
 export default Header;

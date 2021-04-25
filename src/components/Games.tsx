@@ -8,6 +8,7 @@ import { RootState } from '../redux/store';
 import { Container } from '../App';
 import { GameItem, GameItemLoader, Paginator } from '.';
 import scrollTop from '../utils/scrollTop';
+import { device } from '../utils/deviceMedia';
 
 const GamesWrapper = styled.div`
   margin-top: 80px;
@@ -15,6 +16,12 @@ const GamesWrapper = styled.div`
     width: 325px;
     height: 480px;
     margin-bottom: 25px;
+    @media ${device.laptop} {
+      width: 300px;
+    }
+    @media ${device.mobile} {
+      width: 100%;
+    }
   }
 `;
 
@@ -23,18 +30,24 @@ const GamesMain = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  @media ${device.tablet} {
+    flex-direction: column;
+  }
 `;
 
-const Games = () => {
+const Games = React.memo(() => {
   const dispatch = useDispatch();
   const { items, orderBy, genreName, querySearch, currentPage, isLoadingGames } = useSelector(
     (state: RootState) => state.gamesReducer,
   );
   const totalCount = useSelector((state: RootState) => state.gamesReducer.items.count);
 
-  const onSelectGameId = (id: number) => {
-    dispatch(setGameId(id));
-  };
+  const onSelectGameId = React.useCallback(
+    (id: number) => {
+      dispatch(setGameId(id));
+    },
+    [dispatch],
+  );
 
   const onSelectPage = (page: number) => {
     dispatch(setCurrentPage(page));
@@ -61,6 +74,6 @@ const Games = () => {
       </Container>
     </GamesWrapper>
   );
-};
+});
 
 export default Games;

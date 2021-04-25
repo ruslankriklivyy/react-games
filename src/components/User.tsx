@@ -6,6 +6,7 @@ import { Auth, GameListsLink } from '.';
 
 import userSvg from '../assets/images/user.svg';
 import { RootState } from '../redux/store';
+import { device } from '../utils/deviceMedia';
 
 const UserWrapper = styled.div`
   display: flex;
@@ -18,6 +19,10 @@ const UserWrapper = styled.div`
     border: none;
     outline: none;
     cursor: pointer;
+    transition: all 0.2s ease;
+    &:hover {
+      opacity: 0.8;
+    }
     img {
       width: 100%;
       height: 100%;
@@ -43,6 +48,7 @@ const BlockOut = styled.div`
 const UserInfo = styled.div`
   display: flex;
   align-items: center;
+
   span {
     margin-right: 10px;
     opacity: 0.8;

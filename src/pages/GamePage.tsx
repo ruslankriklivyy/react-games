@@ -26,6 +26,7 @@ import { Back, Button } from '../components';
 import scrollTop from '../utils/scrollTop';
 import { addItemToList } from '../redux/actions/list';
 import { IGameItem } from '../interfaces/interfaces';
+import { device } from '../utils/deviceMedia';
 
 const GamePageBlock = styled.div`
   position: relative;
@@ -35,19 +36,27 @@ const GamePageBlock = styled.div`
 
 const GamePageWrapper = styled.div`
   padding: 120px 15px 0 15px;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   position: absolute;
   left: 50%;
   max-width: 1400px;
   margin: 0 auto;
   transform: translate(-50%, 0);
+  z-index: 400;
   top: 0;
 `;
 
 const GamePageMain = styled.div`
   display: flex;
   flex-wrap: wrap;
+  height: 100vh;
+
+  @media ${device.desktopL} {
+    flex-direction: column;
+    max-height: 1900px;
+    min-height: 1200px;
+  }
 `;
 
 const GamePageLeft = styled.div`
@@ -59,6 +68,9 @@ const GamePageLeft = styled.div`
     height: 550px;
     display: block;
     object-fit: cover;
+  }
+  @media ${device.desktopL} {
+    width: 100%;
   }
 `;
 
@@ -83,6 +95,13 @@ const GamePageRight = styled.div`
       width: 25px;
       height: 25px;
       margin-left: 20px;
+    }
+  }
+  @media ${device.desktopL} {
+    margin-top: 20px;
+    width: 100%;
+    button {
+      margin: 30px auto 0 auto;
     }
   }
 `;
@@ -116,7 +135,12 @@ const GamePageInfoItem = styled.div`
 `;
 
 const GamePageBlur = styled.div`
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 10;
   filter: blur(12px);
   width: 100%;
   height: 100vh;
@@ -137,6 +161,9 @@ const GamePageInfoBottom = styled.div`
   display: flex;
   align-items: center;
   margin-top: 20px;
+  @media ${device.desktopL} {
+    margin-top: 0;
+  }
 `;
 
 const GamePagePlatforms = styled.div`
@@ -148,6 +175,11 @@ const GamePagePlatforms = styled.div`
 const GamePagePlatformsItem = styled.div`
   line-height: 1.2;
   margin-right: 20px;
+  @media ${device.desktopL} {
+    margin-right: 0;
+    margin-left: 20px;
+    line-height: 1.4;
+  }
 `;
 
 const GamePageRating = styled.div`
@@ -177,6 +209,10 @@ const GamePageStores = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-top: 40px;
+  @media ${device.desktopL} {
+    margin-top: 20;
+    justify-content: center;
+  }
   a {
     opacity: 0.8;
     width: 40px;
@@ -204,6 +240,7 @@ const GamePageStores = styled.div`
 
 const GamePageScreenshots = styled.div`
   padding-bottom: 40px;
+
   .iiz {
     display: block;
     margin: 0 15px;
@@ -240,7 +277,13 @@ const GamePageScreenshots = styled.div`
   }
 `;
 
-const storesLinks = [
+interface IStoresLinks {
+  name: string;
+  img: string;
+  link: string;
+}
+
+const storesLinks: Array<IStoresLinks> = [
   { name: 'Xbox Store', img: xboxPng, link: 'microsoft.com' },
   { name: 'Epic Games', img: epicGamesPng, link: 'epicgames.com' },
   { name: 'Xbox 360 Store', img: xbox360Png, link: 'marketplace.xbox.com' },
@@ -267,7 +310,7 @@ const GamePage = () => {
   };
 
   const generateLinks = React.useCallback(
-    (arr: any) => {
+    (arr: Array<IStoresLinks>) => {
       const active = chosenGame.stores.map((i) => i.store.name);
       const result = arr.map((i: any) => {
         if (active.indexOf(i.name) >= 0) {
@@ -292,6 +335,14 @@ const GamePage = () => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1140,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
   };
 
   React.useEffect(() => {
@@ -372,22 +423,22 @@ const GamePage = () => {
                   </Fade>
                 </GamePageRight>
               </GamePageMain>
+              <GamePageScreenshots>
+                <Slider {...settings}>
+                  {screenshots?.results &&
+                    screenshots.results.map((item) => (
+                      <InnerImageZoom
+                        min-width={500}
+                        height={320}
+                        zoomType={'click'}
+                        src={item.image}
+                        zoomSrc={item.image}
+                        alt="screen game"
+                      />
+                    ))}
+                </Slider>
+              </GamePageScreenshots>
             </GamePageWrapper>
-            <GamePageScreenshots>
-              <Slider {...settings}>
-                {screenshots?.results &&
-                  screenshots.results.map((item) => (
-                    <InnerImageZoom
-                      min-width={500}
-                      height={320}
-                      zoomType={'click'}
-                      src={item.image}
-                      zoomSrc={item.image}
-                      alt="screen game"
-                    />
-                  ))}
-              </Slider>
-            </GamePageScreenshots>
           </GamePageBlock>
         </Fade>
       </>

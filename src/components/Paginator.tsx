@@ -7,6 +7,7 @@ const PaginatorWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
     li {
       font-weight: 500;
       font-size: 18px;

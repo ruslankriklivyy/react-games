@@ -4,29 +4,42 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { RootState } from '../redux/store';
 
+import gamesCart from '../assets/images/games-cart.svg';
+import { device } from '../utils/deviceMedia';
+
 const GameLists = styled.span`
+  position: relative;
   font-size: 17px;
   margin-right: 25px;
   cursor: pointer;
   transition: all 0.2s ease;
   background-color: transparent;
-  border: 2px solid #0581aa;
-  padding: 8px 20px;
   border-radius: 20px;
   transition: all 0.2s ease;
+  @media ${device.mobile} {
+    margin-left: 20px;
+  }
   &:hover {
     opacity: 0.8;
   }
+  img {
+    width: 25px;
+    height: 25px;
+  }
   span {
+    position: absolute;
+    top: -10px;
+    left: 1px;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #22272b;
-    width: 30px;
-    height: 30px;
+    width: 22px;
+    height: 22px;
     border-radius: 100%;
     margin-left: 12px;
     color: #0581aa;
+    font-size: 14px;
   }
   a {
     display: flex;
@@ -42,7 +55,8 @@ const GameListsLink = () => {
   return (
     <GameLists>
       <Link to="/list">
-        My game list <span>{items?.length >= 0 ? items.length : 0}</span>
+        <img src={gamesCart} alt="games cart svg" />
+        <span>{items?.length >= 0 ? items.length : 0}</span>
       </Link>
     </GameLists>
   );

@@ -12,6 +12,7 @@ const SortByHandle = styled.div`
   align-items: center;
   justify-content: center;
   height: 100%;
+  margin-top: 30px;
 `;
 
 const SortByWrapper = styled.div`
@@ -92,9 +93,12 @@ const SortBy = () => {
   const sortBy = useSelector((state: RootState) => state.gamesReducer.orderBy);
   const [visibleSortBy, setVisibleSortBy] = React.useState(false);
 
-  const onSelectOrderType = (orderBy: string) => {
-    dispatch(setOrderBy(orderBy));
-  };
+  const onSelectOrderType = React.useCallback(
+    (orderBy: string) => {
+      dispatch(setOrderBy(orderBy));
+    },
+    [dispatch],
+  );
 
   const popupRef = React.useRef<HTMLDivElement>(null);
   const escapeListener = React.useCallback(

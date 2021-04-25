@@ -47,7 +47,7 @@ const SearchWrapper = styled.div`
   }
 `;
 
-const Search = () => {
+const Search = React.memo(() => {
   const dispatch = useDispatch();
   const quearySearch = useSelector((state: RootState) => state.gamesReducer.querySearch);
 
@@ -66,6 +66,6 @@ const Search = () => {
       <img src={searchSvg} alt="search svg" />
     </SearchWrapper>
   );
-};
+});
 
 export default Search;

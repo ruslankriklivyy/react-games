@@ -9,6 +9,7 @@ import { setIsAuth, setUser } from '../redux/actions/user';
 import closeSvg from '../assets/images/close.svg';
 import googleSvg from '../assets/images/google.svg';
 import githubSvg from '../assets/images/github.svg';
+import { device } from '../utils/deviceMedia';
 
 const AuthWrapper = styled.div`
   visibility: ${(props: IAuthStyled) => (props.show ? 'visible' : 'hidden')};
@@ -16,7 +17,7 @@ const AuthWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 15px 25px;
+  padding: 15px 25px 20px 25px;
   width: 400px;
   min-height: 200px;
   position: absolute;
@@ -32,6 +33,9 @@ const AuthWrapper = styled.div`
     text-align: center;
     font-size: 28px;
     opacity: 0.7;
+  }
+  @media ${device.desktopL} {
+    width: 95%;
   }
 `;
 

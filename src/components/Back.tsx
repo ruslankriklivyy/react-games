@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import backSvg from '../assets/images/back.svg';
+import { device } from '../utils/deviceMedia';
 
 const BackWrapper = styled.div`
   position: fixed;
@@ -11,6 +12,9 @@ const BackWrapper = styled.div`
   z-index: 990;
   width: 50px;
   height: 45px;
+  @media ${device.desktopM} {
+    display: none;
+  }
 
   a {
     opacity: 0.7;

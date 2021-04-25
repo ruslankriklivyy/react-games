@@ -9,6 +9,7 @@ import { RootState } from '../redux/store';
 
 import removeSvg from '../assets/images/remove.svg';
 import emptySvg from '../assets/images/empty.svg';
+import { device } from '../utils/deviceMedia';
 
 const RemoveItem = styled.div`
   display: flex;
@@ -73,9 +74,15 @@ const Empty = styled.div`
     width: 600px;
     height: 700px;
   }
+  @media ${device.desktopL} {
+    img {
+      width: 95%;
+      height: 100%;
+    }
+  }
 `;
 
-const ListPage = () => {
+const ListPage = React.memo(() => {
   const dispatch = useDispatch();
   const items = useSelector((state: RootState) => state.listReducer.listItems);
 
@@ -113,6 +120,6 @@ const ListPage = () => {
       </Container>
     </ListPageWrapper>
   );
-};
+});
 
 export default ListPage;
