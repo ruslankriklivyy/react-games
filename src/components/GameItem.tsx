@@ -10,6 +10,56 @@ import arrowSvg from '../assets/images/arrow.svg';
 import gameDefaultJpg from '../assets/images/game-default.jpg';
 import { IPlatforms } from '../interfaces/interfaces';
 
+interface IGameItem {
+  id: number;
+  background_image: string;
+  name: string;
+  rating: number;
+  released: string;
+  parent_platforms: Array<IPlatforms>;
+  onSelectGameId?: (id: number) => void;
+}
+
+const GameItem: React.FC<IGameItem> = ({
+  id,
+  background_image,
+  name,
+  rating,
+  released,
+  parent_platforms,
+  onSelectGameId,
+}) => {
+  return (
+    <Fade bottom>
+      <GamesItem key={id}>
+        <GamesImg>
+          <img src={!background_image ? gameDefaultJpg : background_image} alt="game img" />
+        </GamesImg>
+        <GamesInfo>
+          <h4>{name}</h4>
+          <GamesInfoBottom>
+            <GamesTop>
+              <GamesRating>
+                <img src={starSvg} alt="star svg" /> {rating}
+              </GamesRating>
+              <GamesPlatform>
+                {parent_platforms?.length > 0 &&
+                  parent_platforms.slice(0, 3).map((item) => <span>{item.platform.name}</span>)}
+              </GamesPlatform>
+            </GamesTop>
+            <GamesReleased>{released}</GamesReleased>
+            <Link to="/game" onClick={() => onSelectGameId && onSelectGameId(id)}>
+              <Button>
+                More Info <img src={arrowSvg} alt="arrow svg" />
+              </Button>
+            </Link>
+          </GamesInfoBottom>
+        </GamesInfo>
+      </GamesItem>
+    </Fade>
+  );
+};
+
 const GamesItem = styled.div`
   width: 100%;
   margin-bottom: 32px;
@@ -107,55 +157,5 @@ const GamesTop = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-
-interface IGameItem {
-  id: number;
-  background_image: string;
-  name: string;
-  rating: number;
-  released: string;
-  parent_platforms: Array<IPlatforms>;
-  onSelectGameId?: (id: number) => void;
-}
-
-const GameItem: React.FC<IGameItem> = ({
-  id,
-  background_image,
-  name,
-  rating,
-  released,
-  parent_platforms,
-  onSelectGameId,
-}) => {
-  return (
-    <Fade bottom>
-      <GamesItem key={id}>
-        <GamesImg>
-          <img src={!background_image ? gameDefaultJpg : background_image} alt="game img" />
-        </GamesImg>
-        <GamesInfo>
-          <h4>{name}</h4>
-          <GamesInfoBottom>
-            <GamesTop>
-              <GamesRating>
-                <img src={starSvg} alt="star svg" /> {rating}
-              </GamesRating>
-              <GamesPlatform>
-                {parent_platforms?.length > 0 &&
-                  parent_platforms.slice(0, 3).map((item) => <span>{item.platform.name}</span>)}
-              </GamesPlatform>
-            </GamesTop>
-            <GamesReleased>{released}</GamesReleased>
-            <Link to="/game" onClick={() => onSelectGameId && onSelectGameId(id)}>
-              <Button>
-                More Info <img src={arrowSvg} alt="arrow svg" />
-              </Button>
-            </Link>
-          </GamesInfoBottom>
-        </GamesInfo>
-      </GamesItem>
-    </Fade>
-  );
-};
 
 export default GameItem;

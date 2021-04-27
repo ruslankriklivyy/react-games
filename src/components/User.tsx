@@ -6,62 +6,6 @@ import { Auth, GameListsLink } from '.';
 
 import userSvg from '../assets/images/user.svg';
 import { RootState } from '../redux/store';
-import { device } from '../utils/deviceMedia';
-
-const UserWrapper = styled.div`
-  display: flex;
-  align-items: center;
-
-  button {
-    width: 33px;
-    height: 33px;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    &:hover {
-      opacity: 0.8;
-    }
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-`;
-
-const BlockOut = styled.div`
-  position: fixed;
-  visibility: ${(props: IUserStyled) => (props.show ? 'visible' : 'hidden')};
-  opacity: ${(props: IUserStyled) => (props.show ? '1' : '0')};
-  width: 100%;
-  height: 100vh;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 300;
-  background: rgba(0, 0, 0, 0.7);
-  transition: all 0.2s ease;
-`;
-
-const UserInfo = styled.div`
-  display: flex;
-  align-items: center;
-
-  span {
-    margin-right: 10px;
-    opacity: 0.8;
-    font-size: 17px;
-  }
-  img {
-    margin: 0 auto;
-    border-radius: 20px;
-    width: 47px;
-    height: 47px;
-    display: block;
-  }
-`;
 
 interface IUserStyled {
   show: boolean;
@@ -125,5 +69,60 @@ const User = () => {
     </>
   );
 };
+
+const UserWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  button {
+    width: 33px;
+    height: 33px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    &:hover {
+      opacity: 0.8;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+`;
+
+const BlockOut = styled.div`
+  position: fixed;
+  visibility: ${(props: IUserStyled) => (props.show ? 'visible' : 'hidden')};
+  opacity: ${(props: IUserStyled) => (props.show ? '1' : '0')};
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 300;
+  background: rgba(0, 0, 0, 0.7);
+  transition: all 0.2s ease;
+`;
+
+const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
+
+  span {
+    margin-right: 10px;
+    opacity: 0.8;
+    font-size: 17px;
+  }
+  img {
+    margin: 0 auto;
+    border-radius: 20px;
+    width: 47px;
+    height: 47px;
+    display: block;
+  }
+`;
 
 export default User;

@@ -46,6 +46,12 @@ export interface IStoresItem {
   store: IStore;
 }
 
+export interface IStoresLinks {
+  name: string;
+  img: string;
+  link: string;
+}
+
 export interface IPublishers {
   games_count: number;
   id: number;

@@ -7,6 +7,19 @@ import { RootState } from '../redux/store';
 import gamesCart from '../assets/images/games-cart.svg';
 import { device } from '../utils/deviceMedia';
 
+const GameListsLink = () => {
+  const items = useSelector((state: RootState) => state.listReducer.listItems);
+
+  return (
+    <GameLists>
+      <Link to="/list">
+        <img src={gamesCart} alt="games cart svg" />
+        <span>{items?.length >= 0 ? items.length : 0}</span>
+      </Link>
+    </GameLists>
+  );
+};
+
 const GameLists = styled.span`
   position: relative;
   font-size: 17px;
@@ -48,18 +61,5 @@ const GameLists = styled.span`
     color: #fff;
   }
 `;
-
-const GameListsLink = () => {
-  const items = useSelector((state: RootState) => state.listReducer.listItems);
-
-  return (
-    <GameLists>
-      <Link to="/list">
-        <img src={gamesCart} alt="games cart svg" />
-        <span>{items?.length >= 0 ? items.length : 0}</span>
-      </Link>
-    </GameLists>
-  );
-};
 
 export default GameListsLink;

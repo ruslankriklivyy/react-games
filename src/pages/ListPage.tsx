@@ -11,6 +11,46 @@ import removeSvg from '../assets/images/remove.svg';
 import emptySvg from '../assets/images/empty.svg';
 import { device } from '../utils/deviceMedia';
 
+const ListPage = React.memo(() => {
+  const dispatch = useDispatch();
+  const items = useSelector((state: RootState) => state.listReducer.listItems);
+
+  const onRemoveItem = (id: number) => {
+    dispatch(removeItemToList(id));
+  };
+
+  return (
+    <ListPageWrapper>
+      <Back />
+      <Container>
+        <ListPageBox>
+          {items.length > 0 ? (
+            items.map((obj) => (
+              <GameWrapper key={obj.id}>
+                <RemoveItem onClick={() => onRemoveItem(obj.id)}>
+                  <img src={removeSvg} alt="remove svg" />
+                </RemoveItem>
+                <GameItem
+                  id={obj.id}
+                  background_image={obj.background_image}
+                  name={obj.name}
+                  rating={obj.rating}
+                  released={obj.released}
+                  parent_platforms={obj.parent_platforms}
+                />
+              </GameWrapper>
+            ))
+          ) : (
+            <Empty>
+              <img src={emptySvg} alt="empty svg" />
+            </Empty>
+          )}
+        </ListPageBox>
+      </Container>
+    </ListPageWrapper>
+  );
+});
+
 const RemoveItem = styled.div`
   display: flex;
   align-items: center;
@@ -81,45 +121,5 @@ const Empty = styled.div`
     }
   }
 `;
-
-const ListPage = React.memo(() => {
-  const dispatch = useDispatch();
-  const items = useSelector((state: RootState) => state.listReducer.listItems);
-
-  const onRemoveItem = (id: number) => {
-    dispatch(removeItemToList(id));
-  };
-
-  return (
-    <ListPageWrapper>
-      <Back />
-      <Container>
-        <ListPageBox>
-          {items.length > 0 ? (
-            items.map((obj) => (
-              <GameWrapper key={obj.id}>
-                <RemoveItem onClick={() => onRemoveItem(obj.id)}>
-                  <img src={removeSvg} alt="remove svg" />
-                </RemoveItem>
-                <GameItem
-                  id={obj.id}
-                  background_image={obj.background_image}
-                  name={obj.name}
-                  rating={obj.rating}
-                  released={obj.released}
-                  parent_platforms={obj.parent_platforms}
-                />
-              </GameWrapper>
-            ))
-          ) : (
-            <Empty>
-              <img src={emptySvg} alt="empty svg" />
-            </Empty>
-          )}
-        </ListPageBox>
-      </Container>
-    </ListPageWrapper>
-  );
-});
 
 export default ListPage;

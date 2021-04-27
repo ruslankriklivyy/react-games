@@ -11,6 +11,46 @@ import googleSvg from '../assets/images/google.svg';
 import githubSvg from '../assets/images/github.svg';
 import { device } from '../utils/deviceMedia';
 
+interface IAuthStyled {
+  show: boolean;
+}
+
+interface IAuth {
+  onVisible: () => void;
+  show: boolean;
+}
+
+const Auth: React.FC<IAuth> = ({ onVisible, show }) => {
+  const dispatch = useDispatch();
+
+  const onHandleClick = async (provider: any) => {
+    const res = await socialMediaAuth(provider);
+
+    dispatch(setIsAuth(false));
+    dispatch(setUser(res[0]));
+    dispatch(setIsAuth(true));
+
+    onVisible();
+  };
+
+  return (
+    <AuthWrapper show={show}>
+      <AuthClose onClick={() => onVisible()}>
+        <img src={closeSvg} alt="close svg" />
+      </AuthClose>
+      <h4>Login</h4>
+      <AuthLink onClick={() => onHandleClick(googleProvider)}>
+        <img src={googleSvg} alt="google svg" />
+        Sign in with google
+      </AuthLink>
+      <AuthLink onClick={() => onHandleClick(githubProvider)}>
+        <img src={githubSvg} alt="github svg" />
+        Sign in with github
+      </AuthLink>
+    </AuthWrapper>
+  );
+};
+
 const AuthWrapper = styled.div`
   visibility: ${(props: IAuthStyled) => (props.show ? 'visible' : 'hidden')};
   opacity: ${(props: IAuthStyled) => (props.show ? '1' : '0')};
@@ -99,45 +139,5 @@ const AuthClose = styled.button`
     transition: all 0.2s ease;
   }
 `;
-
-interface IAuthStyled {
-  show: boolean;
-}
-
-interface IAuth {
-  onVisible: () => void;
-  show: boolean;
-}
-
-const Auth: React.FC<IAuth> = ({ onVisible, show }) => {
-  const dispatch = useDispatch();
-
-  const onHandleClick = async (provider: any) => {
-    const res = await socialMediaAuth(provider);
-
-    dispatch(setIsAuth(false));
-    dispatch(setUser(res[0]));
-    dispatch(setIsAuth(true));
-
-    onVisible();
-  };
-
-  return (
-    <AuthWrapper show={show}>
-      <AuthClose onClick={() => onVisible()}>
-        <img src={closeSvg} alt="close svg" />
-      </AuthClose>
-      <h4>Login</h4>
-      <AuthLink onClick={() => onHandleClick(googleProvider)}>
-        <img src={googleSvg} alt="google svg" />
-        Sign in with google
-      </AuthLink>
-      <AuthLink onClick={() => onHandleClick(githubProvider)}>
-        <img src={githubSvg} alt="github svg" />
-        Sign in with github
-      </AuthLink>
-    </AuthWrapper>
-  );
-};
 
 export default Auth;

@@ -2,24 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import createPages from '../utils/createPages';
 
-const PaginatorWrapper = styled.div`
-  ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-    li {
-      font-weight: 500;
-      font-size: 18px;
-      margin: 0 7px;
-      cursor: pointer;
-      &.active {
-        color: #0581aa;
-      }
-    }
-  }
-`;
-
 interface IPaginator {
   currentPage: number;
   totalPages: number;
@@ -48,5 +30,23 @@ const Paginator: React.FC<IPaginator> = ({ currentPage, totalPages, onSelectPage
     </PaginatorWrapper>
   );
 };
+
+const PaginatorWrapper = styled.div`
+  ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    li {
+      font-weight: 500;
+      font-size: 18px;
+      margin: 0 7px;
+      cursor: pointer;
+      &.active {
+        color: #0581aa;
+      }
+    }
+  }
+`;
 
 export default Paginator;

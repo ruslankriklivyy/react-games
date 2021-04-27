@@ -5,6 +5,16 @@ import { Link } from 'react-router-dom';
 import backSvg from '../assets/images/back.svg';
 import { device } from '../utils/deviceMedia';
 
+const Back = () => {
+  return (
+    <BackWrapper>
+      <Link to="/">
+        <img src={backSvg} alt="back svg" />
+      </Link>
+    </BackWrapper>
+  );
+};
+
 const BackWrapper = styled.div`
   position: fixed;
   top: 25px;
@@ -37,15 +47,5 @@ const BackWrapper = styled.div`
     height: 20px;
   }
 `;
-
-const Back = () => {
-  return (
-    <BackWrapper>
-      <Link to="/">
-        <img src={backSvg} alt="back svg" />
-      </Link>
-    </BackWrapper>
-  );
-};
 
 export default Back;

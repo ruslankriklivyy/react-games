@@ -7,6 +7,49 @@ import { RootState } from '../redux/store';
 
 import { Container } from '../App';
 
+interface IProps {
+  active: boolean;
+}
+
+const Categories = React.memo(() => {
+  const dispatch = useDispatch();
+  const genres = useSelector((state: RootState) => state.gamesReducer.genres);
+  const genreName = useSelector((state: RootState) => state.gamesReducer.genreName);
+
+  const onSelectGenre = React.useCallback(
+    (genreName: string, e: React.MouseEvent) => {
+      e.preventDefault();
+      dispatch(setGenreName(genreName));
+    },
+    [dispatch],
+  );
+
+  React.useEffect(() => {
+    dispatch(fetchGenres());
+  }, [dispatch]);
+
+  return (
+    <CategoriesWrapper>
+      <Container>
+        <CategoriesMenu>
+          <ul>
+            {genres.results?.map(({ name, id, slug, image_background }) => (
+              <li key={id}>
+                <CategoriesItem
+                  active={genreName?.toLowerCase() === name.toLowerCase() ? true : false}
+                  onClick={(e: React.MouseEvent) => onSelectGenre(slug, e)}>
+                  <img src={image_background} alt="genre img" />
+                  <a href="/">{name}</a>
+                </CategoriesItem>
+              </li>
+            ))}
+          </ul>
+        </CategoriesMenu>
+      </Container>
+    </CategoriesWrapper>
+  );
+});
+
 const CategoriesWrapper = styled.div`
   padding-top: 120px;
 `;
@@ -75,48 +118,5 @@ const CategoriesItem = styled.div`
     height: 100%;
   }
 `;
-
-interface IProps {
-  active: boolean;
-}
-
-const Categories = React.memo(() => {
-  const dispatch = useDispatch();
-  const genres = useSelector((state: RootState) => state.gamesReducer.genres);
-  const genreName = useSelector((state: RootState) => state.gamesReducer.genreName);
-
-  const onSelectGenre = React.useCallback(
-    (genreName: string, e: React.MouseEvent) => {
-      e.preventDefault();
-      dispatch(setGenreName(genreName));
-    },
-    [dispatch],
-  );
-
-  React.useEffect(() => {
-    dispatch(fetchGenres());
-  }, [dispatch]);
-
-  return (
-    <CategoriesWrapper>
-      <Container>
-        <CategoriesMenu>
-          <ul>
-            {genres.results?.map(({ name, id, slug, image_background }) => (
-              <li key={id}>
-                <CategoriesItem
-                  active={genreName?.toLowerCase() === name.toLowerCase() ? true : false}
-                  onClick={(e: React.MouseEvent) => onSelectGenre(slug, e)}>
-                  <img src={image_background} alt="genre img" />
-                  <a href="/">{name}</a>
-                </CategoriesItem>
-              </li>
-            ))}
-          </ul>
-        </CategoriesMenu>
-      </Container>
-    </CategoriesWrapper>
-  );
-});
 
 export default Categories;

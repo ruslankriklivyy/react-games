@@ -10,31 +10,6 @@ import { GameItem, GameItemLoader, Paginator } from '.';
 import scrollTop from '../utils/scrollTop';
 import { device } from '../utils/deviceMedia';
 
-const GamesWrapper = styled.div`
-  margin-top: 80px;
-  .react-reveal {
-    width: 325px;
-    height: 480px;
-    margin-bottom: 25px;
-    @media ${device.laptop} {
-      width: 300px;
-    }
-    @media ${device.mobile} {
-      width: 100%;
-    }
-  }
-`;
-
-const GamesMain = styled.div`
-  display: flex !important;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  @media ${device.tablet} {
-    flex-direction: column;
-  }
-`;
-
 const Games = React.memo(() => {
   const dispatch = useDispatch();
   const { items, orderBy, genreName, querySearch, currentPage, isLoadingGames } = useSelector(
@@ -75,5 +50,30 @@ const Games = React.memo(() => {
     </GamesWrapper>
   );
 });
+
+const GamesWrapper = styled.div`
+  margin-top: 80px;
+  .react-reveal {
+    width: 325px;
+    height: 480px;
+    margin-bottom: 25px;
+    @media ${device.laptop} {
+      width: 300px;
+    }
+    @media ${device.mobile} {
+      width: 100%;
+    }
+  }
+`;
+
+const GamesMain = styled.div`
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  @media ${device.tablet} {
+    flex-direction: column;
+  }
+`;
 
 export default Games;

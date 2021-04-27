@@ -1,6 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
+interface IButton {
+  children: React.ReactChild | React.ReactNode;
+  onClick?: React.ReactEventHandler;
+}
+
+const Button: React.FC<IButton> = ({ children, onClick }) => {
+  return <ButtonMain onClick={onClick}>{children}</ButtonMain>;
+};
+
 const ButtonMain = styled.button`
   width: 100%;
   height: 100%;
@@ -18,14 +27,5 @@ const ButtonMain = styled.button`
     transform: translateY(5px);
   }
 `;
-
-interface IButton {
-  children: React.ReactChild | React.ReactNode;
-  onClick?: React.ReactEventHandler;
-}
-
-const Button: React.FC<IButton> = ({ children, onClick }) => {
-  return <ButtonMain onClick={onClick}>{children}</ButtonMain>;
-};
 
 export default Button;

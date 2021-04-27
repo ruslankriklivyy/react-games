@@ -11,3 +11,6 @@ export { default as GameListsLink } from './GameListsLink';
 export { default as Back } from './Back';
 export { default as Auth } from './Auth';
 export { default as User } from './User';
+export { default as GamePageScreenshots } from './GamePage/GamePageScreenshots';
+export { default as GameInfoItem } from './GamePage/GameInfoItem';
+export { default as GameStoreItem } from './GamePage/GameStoreItem';

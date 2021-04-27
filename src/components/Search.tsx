@@ -7,6 +7,27 @@ import { RootState } from '../redux/store';
 
 import searchSvg from '../assets/images/search.svg';
 
+const Search = React.memo(() => {
+  const dispatch = useDispatch();
+  const quearySearch = useSelector((state: RootState) => state.gamesReducer.querySearch);
+
+  const onHandleChange = (value: string) => {
+    dispatch(setQuearySearch(value));
+  };
+
+  return (
+    <SearchWrapper>
+      <input
+        type="text"
+        onChange={(e) => onHandleChange(e.target.value)}
+        value={quearySearch}
+        placeholder="Search"
+      />
+      <img src={searchSvg} alt="search svg" />
+    </SearchWrapper>
+  );
+});
+
 const SearchWrapper = styled.div`
   width: 410px;
   height: 45px;
@@ -46,26 +67,5 @@ const SearchWrapper = styled.div`
     height: 18px;
   }
 `;
-
-const Search = React.memo(() => {
-  const dispatch = useDispatch();
-  const quearySearch = useSelector((state: RootState) => state.gamesReducer.querySearch);
-
-  const onHandleChange = (value: string) => {
-    dispatch(setQuearySearch(value));
-  };
-
-  return (
-    <SearchWrapper>
-      <input
-        type="text"
-        onChange={(e) => onHandleChange(e.target.value)}
-        value={quearySearch}
-        placeholder="Search"
-      />
-      <img src={searchSvg} alt="search svg" />
-    </SearchWrapper>
-  );
-});
 
 export default Search;
