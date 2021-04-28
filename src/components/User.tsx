@@ -1,19 +1,29 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
+import { RootState } from '../redux/store';
 import { Auth, GameListsLink } from '.';
+import socialLogout from '../service/logout';
 
 import userSvg from '../assets/images/user.svg';
-import { RootState } from '../redux/store';
+import { setIsAuth } from '../redux/actions/user';
 
 interface IUserStyled {
   show: boolean;
 }
 
 const User = () => {
+  const dispatch = useDispatch();
   const { user, isAuth } = useSelector((state: RootState) => state.userReducer);
   const [visibleAuth, setVisibleAuth] = React.useState(false);
+
+  const logout = async (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    await socialLogout();
+    dispatch(setIsAuth(false));
+  };
 
   const handleVisibleAuth = React.useCallback(() => {
     setVisibleAuth(!visibleAuth);
@@ -57,7 +67,12 @@ const User = () => {
         <GameListsLink />
         {isAuth ? (
           <UserInfo>
-            <span>{user.displayName}</span>
+            <UserInfoLeft>
+              <span>{user.displayName}</span>
+              <a href="/" onClick={(e) => logout(e)}>
+                Logout
+              </a>
+            </UserInfoLeft>
             <img src={user.photoURL} alt="user" />
           </UserInfo>
         ) : (
@@ -69,6 +84,20 @@ const User = () => {
     </>
   );
 };
+
+const UserInfoLeft = styled.div`
+  a {
+    display: block;
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    width: 30px;
+    margin-right: left;
+    font-size: 14px;
+    opacity: 0.7;
+    letter-spacing: 1px;
+  }
+`;
 
 const UserWrapper = styled.div`
   display: flex;
@@ -114,7 +143,8 @@ const UserInfo = styled.div`
   span {
     margin-right: 10px;
     opacity: 0.8;
-    font-size: 17px;
+    font-size: 18px;
+    letter-spacing: 1px;
   }
   img {
     margin: 0 auto;

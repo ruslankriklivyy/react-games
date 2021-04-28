@@ -40,7 +40,9 @@ const Games = React.memo(() => {
       <Container>
         <GamesMain>
           {isLoadingGames
-            ? items.results?.map((obj) => <GameItem onSelectGameId={onSelectGameId} {...obj} />)
+            ? items.results?.map((obj) => (
+                <GameItem key={obj.id} onSelectGameId={onSelectGameId} {...obj} />
+              ))
             : Array(20)
                 .fill(0)
                 .map((_, index) => <GameItemLoader key={index} />)}
