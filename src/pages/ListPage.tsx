@@ -80,13 +80,14 @@ const ListPageWrapper = styled.div`
 const ListPageBox = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 `;
 
 const GameWrapper = styled.div`
   width: 400px;
   margin-bottom: 50px;
+  margin-left: 20px;
   position: relative;
   .react-reveal {
     height: 480px;
