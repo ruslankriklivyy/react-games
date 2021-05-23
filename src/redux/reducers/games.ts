@@ -82,6 +82,10 @@ export const gamesReducer = (state = initialState, action: Actions): InitialStat
       };
 
     case SET_GAME_ID:
+      if (action.payload) {
+        localStorage.setItem('gameId', JSON.stringify(action.payload));
+      }
+
       return {
         ...state,
         gameId: action.payload,

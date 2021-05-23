@@ -3,12 +3,11 @@ import { IStoresLinks } from '../../interfaces/interfaces';
 
 interface IGameStoreItem {
   item: IStoresLinks;
-  index: number;
 }
 
-const GameStoreItem: React.FC<IGameStoreItem> = ({ item, index }) => {
+const GameStoreItem: React.FC<IGameStoreItem> = ({ item }) => {
   return (
-    <a href={`https://${item.link}`} key={index.toString()}>
+    <a href={`https://${item.link}`}>
       <img src={item.img} alt="store img" />
     </a>
   );

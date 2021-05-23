@@ -44,9 +44,9 @@ const storesLinks: Array<IStoresLinks> = [
 
 const GamePage = () => {
   const dispatch = useDispatch();
-  const chosenGame = useSelector((state: RootState) => state.gamesReducer.chosenGame);
-  const gameId = useSelector((state: RootState) => state.gamesReducer.gameId);
-  const screenshots = useSelector((state: RootState) => state.gamesReducer.screenshots);
+  const { chosenGame, gameId, screenshots } = useSelector((state: RootState) => state.gamesReducer);
+
+  console.log(chosenGame);
 
   const onAddToList = (obj: IGameItem) => {
     dispatch(addItemToList(obj));
@@ -74,7 +74,14 @@ const GamePage = () => {
   }, [dispatch, chosenGame.slug]);
 
   React.useEffect(() => {
-    dispatch(fetchOneGame(gameId));
+    const storageGameId = JSON.parse(localStorage.getItem('gameId') || 'null');
+
+    if (storageGameId) {
+      dispatch(fetchOneGame(storageGameId));
+    } else {
+      dispatch(fetchOneGame(gameId));
+    }
+
     scrollTop();
   }, [dispatch, gameId]);
 
@@ -109,8 +116,10 @@ const GamePage = () => {
                         {chosenGame.rating}
                       </GamePageRating>
                       <GamePagePlatforms>
-                        {chosenGame.platforms?.map((item) => (
-                          <GamePagePlatformsItem>{item.platform.name}</GamePagePlatformsItem>
+                        {chosenGame.platforms?.map((item, index) => (
+                          <GamePagePlatformsItem key={index}>
+                            {item.platform.name}
+                          </GamePagePlatformsItem>
                         ))}
                       </GamePagePlatforms>
                     </GamePageInfoBottom>
@@ -118,7 +127,7 @@ const GamePage = () => {
                       {chosenGame.stores &&
                         newArr.map(
                           (item: any, index: number) =>
-                            item && <GameStoreItem item={item} index={index} />,
+                            item && <GameStoreItem item={item} key={index} />,
                         )}
                     </GamePageStores>
                     <Button onClick={() => onAddToList(chosenGame)}>
