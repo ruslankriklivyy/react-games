@@ -1,22 +1,19 @@
 import React from 'react';
 import Fade from 'react-reveal/Fade';
-
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-
-import { fetchScreenshots, fetchOneGame } from '../redux/actions/games';
-import { RootState } from '../redux/store';
-
-import linkSvg from '../assets/images/link.svg';
-import plusSvg from '../assets/images/plus.svg';
-
-import starSvg from '../assets/images/star.svg';
 
 import { Back, Button, GameInfoItem, GamePageScreenshots, GameStoreItem } from '../components';
 import scrollTop from '../utils/scrollTop';
 import { addItemToList } from '../redux/actions/list';
 import { IGameItem, IStoresLinks } from '../interfaces/interfaces';
 import { device } from '../utils/deviceMedia';
+import { fetchScreenshots, fetchOneGame } from '../redux/actions/games';
+import { RootState } from '../redux/store';
+
+import linkSvg from '../assets/images/link.svg';
+import plusSvg from '../assets/images/plus.svg';
+import starSvg from '../assets/images/star.svg';
 
 const GamePage = () => {
   const dispatch = useDispatch();
