@@ -11,6 +11,17 @@ import {
   SET_QUERY_SEARCH,
   SET_SCREENSHOTS,
 } from '../../types/gamesTypes';
+import {
+  xboxPng,
+  epicGamesPng,
+  xbox360Png,
+  steamPng,
+  playstationPng,
+  googlePlayPng,
+  appStorePng,
+  gogPng,
+  nintendoPng,
+} from '../../utils/storeImages';
 import { Actions } from '../actions/games';
 
 const initialState = {
@@ -24,6 +35,21 @@ const initialState = {
   currentPage: 1 as number,
   orderBy: 'Metacritic' as string,
   isLoadingGames: false as boolean,
+  storesImages: [
+    { name: 'Xbox Store', img: xboxPng, link: 'microsoft.com' },
+    { name: 'Epic Games', img: epicGamesPng, link: 'epicgames.com' },
+    { name: 'Xbox 360 Store', img: xbox360Png, link: 'marketplace.xbox.com' },
+    { name: 'Steam', img: steamPng, link: 'store.steampowered.com' },
+    {
+      name: 'PlayStation Store',
+      img: playstationPng,
+      link: 'store.playstation.com',
+    },
+    { name: 'Google Play', img: googlePlayPng, link: 'play.google.com' },
+    { name: 'App Store', img: appStorePng, link: 'apps.apple.com' },
+    { name: 'GOG', img: gogPng, link: 'gog.com' },
+    { name: 'Nintendo Store', img: nintendoPng, link: 'nintendo.com' },
+  ],
 };
 
 export type InitialState = typeof initialState;

@@ -132,17 +132,17 @@ export const fetchOneGame = (gameId: number | null): FetchOneGame => ({
   payload: gameId,
 });
 
-export interface FecthScreenshots {
+export interface FetchScreenshots {
   type: typeof FETCH_SCREENSHOTS;
   payload: string | null;
 }
-export const fecthScreenshots = (name: string | null): FecthScreenshots => ({
+export const fetchScreenshots = (name: string | null): FetchScreenshots => ({
   type: FETCH_SCREENSHOTS,
   payload: name,
 });
 
 export type Actions =
-  | FecthScreenshots
+  | FetchScreenshots
   | FetchOneGame
   | FetchGenres
   | FetchGames

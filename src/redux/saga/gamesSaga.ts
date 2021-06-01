@@ -8,7 +8,7 @@ import {
 
 import axios from 'axios';
 import {
-  FecthScreenshots,
+  FetchScreenshots,
   FetchGames,
   FetchOneGame,
   setChosenGame,
@@ -22,7 +22,7 @@ const games = axios.create({
   baseURL: 'https://api.rawg.io/api/',
 });
 
-const fetchScreenshotsFromApi = (action: FecthScreenshots) =>
+const fetchScreenshotsFromApi = (action: FetchScreenshots) =>
   games
     .get(`games/${action.payload}/screenshots?key=722c9d0913da4424a89ab6e326074614`)
     .then(({ data }) => {
@@ -57,7 +57,7 @@ const fetchGamesFromApi = (
       return data;
     });
 
-function* fetchScreenshotsWorker(action: FecthScreenshots) {
+function* fetchScreenshotsWorker(action: FetchScreenshots) {
   const data: IScreenshots = yield fetchScreenshotsFromApi(action);
   yield put(setScreenshots(data));
 }

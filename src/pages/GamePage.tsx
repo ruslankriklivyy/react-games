@@ -4,49 +4,25 @@ import Fade from 'react-reveal/Fade';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { fecthScreenshots, fetchOneGame } from '../redux/actions/games';
+import { fetchScreenshots, fetchOneGame } from '../redux/actions/games';
 import { RootState } from '../redux/store';
 
 import linkSvg from '../assets/images/link.svg';
 import plusSvg from '../assets/images/plus.svg';
-import epicGamesPng from '../assets/images/epicGames.png';
 
 import starSvg from '../assets/images/star.svg';
-import appStorePng from '../assets/images/app-store.png';
-import googlePlayPng from '../assets/images/google-play.png';
-import xboxPng from '../assets/images/xbox.png';
-import xbox360Png from '../assets/images/xbox360.png';
-import steamPng from '../assets/images/steam.png';
-import gogPng from '../assets/images/gog.png';
-import playstationPng from '../assets/images/playstation.png';
-import nintendoPng from '../assets/images/nintendo.png';
+
 import { Back, Button, GameInfoItem, GamePageScreenshots, GameStoreItem } from '../components';
 import scrollTop from '../utils/scrollTop';
 import { addItemToList } from '../redux/actions/list';
 import { IGameItem, IStoresLinks } from '../interfaces/interfaces';
 import { device } from '../utils/deviceMedia';
 
-const storesLinks: Array<IStoresLinks> = [
-  { name: 'Xbox Store', img: xboxPng, link: 'microsoft.com' },
-  { name: 'Epic Games', img: epicGamesPng, link: 'epicgames.com' },
-  { name: 'Xbox 360 Store', img: xbox360Png, link: 'marketplace.xbox.com' },
-  { name: 'Steam', img: steamPng, link: 'store.steampowered.com' },
-  {
-    name: 'PlayStation Store',
-    img: playstationPng,
-    link: 'store.playstation.com',
-  },
-  { name: 'Google Play', img: googlePlayPng, link: 'play.google.com' },
-  { name: 'App Store', img: appStorePng, link: 'apps.apple.com' },
-  { name: 'GOG', img: gogPng, link: 'gog.com' },
-  { name: 'Nintendo Store', img: nintendoPng, link: 'nintendo.com' },
-];
-
 const GamePage = () => {
   const dispatch = useDispatch();
-  const { chosenGame, gameId, screenshots } = useSelector((state: RootState) => state.gamesReducer);
-
-  console.log(chosenGame);
+  const { chosenGame, gameId, screenshots, storesImages } = useSelector(
+    (state: RootState) => state.gamesReducer,
+  );
 
   const onAddToList = (obj: IGameItem) => {
     dispatch(addItemToList(obj));
@@ -67,10 +43,10 @@ const GamePage = () => {
     [chosenGame.stores],
   );
 
-  const newArr = chosenGame.stores ? generateLinks(storesLinks) : [];
+  const newArr = chosenGame.stores ? generateLinks(storesImages) : [];
 
   React.useEffect(() => {
-    dispatch(fecthScreenshots(chosenGame.slug));
+    dispatch(fetchScreenshots(chosenGame.slug));
   }, [dispatch, chosenGame.slug]);
 
   React.useEffect(() => {
