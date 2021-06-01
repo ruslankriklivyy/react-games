@@ -1,5 +1,10 @@
 import { put, takeEvery, call } from 'redux-saga/effects';
-import { FETCH_ITEMS, FETCH_GENRES, FETCH_ONE_GAME, FETCH_SCREENSHOTS } from '../reducers/games';
+import {
+  FETCH_ITEMS,
+  FETCH_GENRES,
+  FETCH_ONE_GAME,
+  FETCH_SCREENSHOTS,
+} from '../../types/gamesTypes';
 
 import axios from 'axios';
 import {

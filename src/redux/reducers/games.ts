@@ -1,4 +1,16 @@
 import { IGameItem, IGames, IGenres, IScreenshots } from '../../interfaces/interfaces';
+import {
+  SET_CHOSEN_GAME,
+  SET_CURRENT_PAGE,
+  SET_GAME_ID,
+  SET_GENRES,
+  SET_GENRE_NAME,
+  SET_IS_LOADING_GAMES,
+  SET_ITEMS,
+  SET_ORDER_TYPE,
+  SET_QUERY_SEARCH,
+  SET_SCREENSHOTS,
+} from '../../types/gamesTypes';
 import { Actions } from '../actions/games';
 
 const initialState = {
@@ -15,21 +27,6 @@ const initialState = {
 };
 
 export type InitialState = typeof initialState;
-
-const SET_IS_LOADING_GAMES = 'SET_IS_LOADING_GAMES';
-const SET_ITEMS = 'SET_ITEMS';
-const SET_GENRES = 'SET_GENRES';
-const SET_GENRE_NAME = 'SET_GENRE_NAME';
-const SET_QUERY_SEARCH = 'SET_QUERY_SEARCH';
-const SET_GAME_ID = 'SET_GAME_ID';
-const SET_CHOSEN_GAME = 'SET_CHOSEN_GAME';
-const SET_SCREENSHOTS = 'SET_SCREENSHOTS';
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
-const SET_ORDER_TYPE = 'SET_ORDER_TYPE';
-export const FETCH_ITEMS = 'FETCH_ITEMS';
-export const FETCH_GENRES = 'FETCH_GENRES';
-export const FETCH_ONE_GAME = 'FETCH_ONE_GAME';
-export const FETCH_SCREENSHOTS = 'FETCH_SCREENSHOTS';
 
 export const gamesReducer = (state = initialState, action: Actions): InitialState => {
   switch (action.type) {

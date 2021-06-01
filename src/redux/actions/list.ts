@@ -1,7 +1,5 @@
 import { IGameItem } from '../../interfaces/interfaces';
-
-const ADD_LIST_ITEM = 'ADD_LIST_ITEM';
-const REMOVE_LIST_ITEM = 'REMOVE_LIST_ITEM';
+import { ADD_LIST_ITEM, REMOVE_LIST_ITEM } from '../../types/listTypes';
 
 interface AddItemToList {
   type: typeof ADD_LIST_ITEM;

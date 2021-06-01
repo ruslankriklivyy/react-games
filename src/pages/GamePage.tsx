@@ -126,7 +126,7 @@ const GamePage = () => {
                     <GamePageStores>
                       {chosenGame.stores &&
                         newArr.map(
-                          (item: any, index: number) =>
+                          (item, index: number) =>
                             item && <GameStoreItem item={item} key={index} />,
                         )}
                     </GamePageStores>

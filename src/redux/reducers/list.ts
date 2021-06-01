@@ -1,4 +1,5 @@
 import { IGameItem } from '../../interfaces/interfaces';
+import { ADD_LIST_ITEM, REMOVE_LIST_ITEM } from '../../types/listTypes';
 import { Actions } from '../actions/list';
 
 const initialState = {
@@ -6,9 +7,6 @@ const initialState = {
 };
 
 export type InitialState = typeof initialState;
-
-const ADD_LIST_ITEM = 'ADD_LIST_ITEM';
-const REMOVE_LIST_ITEM = 'REMOVE_LIST_ITEM';
 
 export const listReducer = (state = initialState, action: Actions): InitialState => {
   switch (action.type) {

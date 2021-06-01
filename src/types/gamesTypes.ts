@@ -1,0 +1,14 @@
+export const SET_IS_LOADING_GAMES = 'SET_IS_LOADING_GAMES';
+export const SET_ITEMS = 'SET_ITEMS';
+export const SET_GENRES = 'SET_GENRES';
+export const SET_GENRE_NAME = 'SET_GENRE_NAME';
+export const SET_QUERY_SEARCH = 'SET_QUERY_SEARCH';
+export const SET_GAME_ID = 'SET_GAME_ID';
+export const SET_CHOSEN_GAME = 'SET_CHOSEN_GAME';
+export const SET_SCREENSHOTS = 'SET_SCREENSHOTS';
+export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+export const SET_ORDER_TYPE = 'SET_ORDER_TYPE';
+export const FETCH_ITEMS = 'FETCH_ITEMS';
+export const FETCH_GENRES = 'FETCH_GENRES';
+export const FETCH_ONE_GAME = 'FETCH_ONE_GAME';
+export const FETCH_SCREENSHOTS = 'FETCH_SCREENSHOTS';

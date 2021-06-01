@@ -1,7 +1,5 @@
 import { IUser } from '../../interfaces/interfaces';
-
-const SET_USER = 'SET_USER';
-const SET_IS_AUTH = 'SET_IS_AUTH';
+import { SET_IS_AUTH, SET_USER } from '../../types/userTypes';
 
 interface SetUser {
   type: typeof SET_USER;

@@ -1,4 +1,5 @@
 import { IUser } from '../../interfaces/interfaces';
+import { SET_IS_AUTH, SET_USER } from '../../types/userTypes';
 import { Actions } from '../actions/user';
 
 const initialState = {
@@ -7,9 +8,6 @@ const initialState = {
 };
 
 export type InitialState = typeof initialState;
-
-const SET_USER = 'SET_USER';
-const SET_IS_AUTH = 'SET_IS_AUTH';
 
 export const userReducer = (state = initialState, action: Actions): InitialState => {
   switch (action.type) {

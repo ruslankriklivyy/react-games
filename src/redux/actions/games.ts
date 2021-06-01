@@ -1,5 +1,10 @@
 import { IGameItem, IGames, IGenres, IScreenshots } from '../../interfaces/interfaces';
-import { FETCH_GENRES, FETCH_ITEMS, FETCH_ONE_GAME, FETCH_SCREENSHOTS } from '../reducers/games';
+import {
+  FETCH_GENRES,
+  FETCH_ITEMS,
+  FETCH_ONE_GAME,
+  FETCH_SCREENSHOTS,
+} from '../../types/gamesTypes';
 
 const SET_IS_LOADING_GAMES = 'SET_IS_LOADING_GAMES';
 const SET_ITEMS = 'SET_ITEMS';
