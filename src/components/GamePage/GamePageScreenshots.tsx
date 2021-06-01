@@ -35,7 +35,7 @@ const GamePageScreenshots: React.FC<IGamePageScreenshots> = ({ screenshots }) =>
     <GamePageScreenshotsWrapper>
       <Slider {...settings}>
         {screenshots?.results &&
-          screenshots.results.map((item: any, index) => (
+          screenshots.results.map((item, index) => (
             <div key={index}>
               <InnerImageZoom
                 min-width={500}

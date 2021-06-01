@@ -62,7 +62,6 @@ export interface IPublishers {
 
 export interface IGameItem {
   added: number;
-  added_by_status: any;
   background_image: string;
   website?: string;
   description_raw: string;
@@ -70,8 +69,6 @@ export interface IGameItem {
   developers: Array<IGameDevelopers>;
   clip: null;
   dominant_color: string;
-  esrb_rating: any;
-  genres: any;
   id: number;
   metacritic: number;
   name: string;
@@ -83,7 +80,6 @@ export interface IGameItem {
   publishers: Array<IPublishers>;
   rating: number;
   rating_top: number;
-  ratings: any;
   ratings_count: number;
   released: string;
   reviews_count: number;
@@ -92,10 +88,8 @@ export interface IGameItem {
   short_screenshots: Array<IGameScreenshots>;
   slug: string;
   suggestions_count: number;
-  tags: any;
   tba: boolean;
   updated: string;
-  user_game: any;
 }
 
 export interface IGames {
@@ -138,8 +132,6 @@ export interface IScreenshotsResults {
 }
 export interface IScreenshots {
   count: number;
-  next: any;
-  previous: any;
   results: Array<IScreenshotsResults>;
 }
 

@@ -12,7 +12,7 @@ export const listReducer = (state = initialState, action: Actions): InitialState
   switch (action.type) {
     case ADD_LIST_ITEM: {
       let newItems: Array<IGameItem> = [...state.listItems];
-      let ids: any = [];
+      let ids: number[] = [];
 
       if (state.listItems.length > 0) {
         state.listItems.forEach((obj) => {

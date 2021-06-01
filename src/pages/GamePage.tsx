@@ -28,7 +28,7 @@ const GamePage = () => {
   const generateLinks = React.useCallback(
     (arr: Array<IStoresLinks>) => {
       const active = chosenGame.stores.map((i) => i.store.name);
-      const result = arr.map((i: any) => {
+      const result = arr.map((i) => {
         if (active.indexOf(i.name) >= 0) {
           return i;
         } else {
