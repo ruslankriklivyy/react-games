@@ -6,7 +6,6 @@ import {
   FETCH_SCREENSHOTS,
 } from '../../types/gamesTypes';
 
-import axios from 'axios';
 import {
   FetchScreenshots,
   FetchGames,
@@ -17,45 +16,12 @@ import {
   setScreenshots,
 } from '../actions/games';
 import { IGameItem, IGames, IGenres, IScreenshots } from '../../interfaces/interfaces';
-
-const games = axios.create({
-  baseURL: 'https://api.rawg.io/api/',
-});
-
-const fetchScreenshotsFromApi = (action: FetchScreenshots) =>
-  games
-    .get(`games/${action.payload}/screenshots?key=722c9d0913da4424a89ab6e326074614`)
-    .then(({ data }) => {
-      return data;
-    });
-
-const fetchOneGameFromApi = (id: number | null) =>
-  games.get(`games/${id}?key=722c9d0913da4424a89ab6e326074614`).then(({ data }) => {
-    return data;
-  });
-
-const fetchGenresFromApi = () =>
-  games.get('genres?key=722c9d0913da4424a89ab6e326074614').then(({ data }) => {
-    return data;
-  });
-
-const fetchGamesFromApi = (
-  genreName: string,
-  quearySearch: string,
-  pageNumber: number,
-  orderBy: string,
-) =>
-  games
-    .get(
-      `games?key=722c9d0913da4424a89ab6e326074614${
-        quearySearch !== '' ? `&search=${quearySearch}` : ''
-      }${
-        genreName !== '' ? `&genres=${genreName}` : ''
-      }&ordering=-${orderBy.toLowerCase()}&page=${pageNumber}`,
-    )
-    .then(({ data }) => {
-      return data;
-    });
+import {
+  fetchGamesFromApi,
+  fetchGenresFromApi,
+  fetchOneGameFromApi,
+  fetchScreenshotsFromApi,
+} from '../../api/api';
 
 function* fetchScreenshotsWorker(action: FetchScreenshots) {
   const data: IScreenshots = yield fetchScreenshotsFromApi(action);
