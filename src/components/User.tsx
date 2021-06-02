@@ -5,9 +5,8 @@ import styled from 'styled-components';
 import { RootState } from '../redux/store';
 import { Auth, GameListsLink } from '.';
 import socialLogout from '../service/logout';
-
-import userSvg from '../assets/images/user.svg';
 import { setIsAuth } from '../redux/actions/user';
+import userSvg from '../assets/images/user.svg';
 
 interface IUserStyled {
   show: boolean;

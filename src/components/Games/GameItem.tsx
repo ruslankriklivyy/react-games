@@ -3,12 +3,12 @@ import Fade from 'react-reveal/Fade';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Button } from '.';
+import { Button } from '../';
+import { IPlatforms } from '../../interfaces/interfaces';
 
-import starSvg from '../assets/images/star.svg';
-import arrowSvg from '../assets/images/arrow.svg';
-import gameDefaultJpg from '../assets/images/game-default.jpg';
-import { IPlatforms } from '../interfaces/interfaces';
+import starSvg from '../../assets/images/star.svg';
+import arrowSvg from '../../assets/images/arrow.svg';
+import gameDefaultJpg from '../../assets/images/game-default.jpg';
 
 interface IGameItem {
   id: number;

@@ -2,10 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { RootState } from '../redux/store';
+import { RootState } from '../../redux/store';
 
-import gamesCart from '../assets/images/games-cart.svg';
-import { device } from '../utils/deviceMedia';
+import gamesCart from '../../assets/images/games-cart.svg';
+import { device } from '../../utils/deviceMedia';
 
 const GameListsLink = () => {
   const items = useSelector((state: RootState) => state.listReducer.listItems);

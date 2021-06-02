@@ -1,12 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { Container } from '../App';
 
-import downArrowSvg from '../assets/images/down-arrow.svg';
 import { setOrderBy } from '../redux/actions/games';
 import { RootState } from '../redux/store';
-
+import { Container } from '../App';
+import downArrowSvg from '../assets/images/down-arrow.svg';
 interface SortByStylesProps {
   show: boolean;
 }

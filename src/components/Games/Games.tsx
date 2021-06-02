@@ -2,13 +2,17 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { fetchGames, setCurrentPage, setGameId, setIsLoadingGames } from '../redux/actions/games';
-import { RootState } from '../redux/store';
-
-import { Container } from '../App';
-import { GameItem, GameItemLoader, Paginator } from '.';
-import scrollTop from '../utils/scrollTop';
-import { device } from '../utils/deviceMedia';
+import {
+  fetchGames,
+  setCurrentPage,
+  setGameId,
+  setIsLoadingGames,
+} from '../../redux/actions/games';
+import { RootState } from '../../redux/store';
+import { Container } from '../../App';
+import { GameItem, GameItemLoader, Paginator } from '..';
+import scrollTop from '../../utils/scrollTop';
+import { device } from '../../utils/deviceMedia';
 
 const Games = React.memo(() => {
   const dispatch = useDispatch();

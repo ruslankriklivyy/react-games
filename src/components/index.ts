@@ -1,13 +1,13 @@
 export { default as Header } from './Header';
 export { default as Categories } from './Categories';
-export { default as Games } from './Games';
+export { default as Games } from './Games/Games';
 export { default as Button } from './Button';
-export { default as GameItem } from './GameItem';
+export { default as GameItem } from './Games/GameItem';
 export { default as Search } from './Search';
 export { default as Paginator } from './Paginator';
 export { default as SortBy } from './SortBy';
-export { default as GameItemLoader } from './GameItemLoader';
-export { default as GameListsLink } from './GameListsLink';
+export { default as GameItemLoader } from './Games/GameItemLoader';
+export { default as GameListsLink } from './Games/GameListsLink';
 export { default as Back } from './Back';
 export { default as Auth } from './Auth';
 export { default as User } from './User';
