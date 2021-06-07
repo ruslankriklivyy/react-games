@@ -8,19 +8,28 @@ const games = axios.create({
 const api_key = 'key=722c9d0913da4424a89ab6e326074614';
 
 export const fetchScreenshotsFromApi = (action: FetchScreenshots) =>
-  games.get(`games/${action.payload}/screenshots?${api_key}`).then(({ data }) => {
-    return data;
-  });
+  games
+    .get(`games/${action.payload}/screenshots?${api_key}`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => alert(err));
 
 export const fetchOneGameFromApi = (id: number | null) =>
-  games.get(`games/${id}?${api_key}`).then(({ data }) => {
-    return data;
-  });
+  games
+    .get(`games/${id}?${api_key}`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => alert(err));
 
 export const fetchGenresFromApi = () =>
-  games.get(`genres?${api_key}`).then(({ data }) => {
-    return data;
-  });
+  games
+    .get(`genres?${api_key}`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => alert(err));
 
 export const fetchGamesFromApi = (
   genreName: string,
@@ -36,4 +45,5 @@ export const fetchGamesFromApi = (
     )
     .then(({ data }) => {
       return data;
-    });
+    })
+    .catch((err) => alert(err));
