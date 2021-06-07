@@ -67,12 +67,12 @@ const User = () => {
         {isAuth ? (
           <UserInfo>
             <UserInfoLeft>
-              <span>{user.displayName}</span>
+              <span>{user?.displayName}</span>
               <a href="/" onClick={(e) => logout(e)}>
                 Logout
               </a>
             </UserInfoLeft>
-            <img src={user.photoURL} alt="user" />
+            <img src={user?.photoURL} alt="user" />
           </UserInfo>
         ) : (
           <button onClick={() => handleVisibleAuth()}>
