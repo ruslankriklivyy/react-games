@@ -1,6 +1,6 @@
 ## React Games
 
-[Live demo](https://react-games-git-main-ruslankrilkivyy.vercel.app/)
+▶[Live demo](https://react-games-git-main-ruslankrilkivyy.vercel.app/)
 
 ![Header](https://github.com/ruslankriklivyy/react-games/blob/main/public/reactGames.gif)
 
