@@ -33,16 +33,17 @@ const Categories = React.memo(() => {
       <Container>
         <CategoriesMenu>
           <ul>
-            {genres.results?.map(({ name, id, slug, image_background }) => (
-              <li key={id}>
-                <CategoriesItem
-                  active={genreName?.toLowerCase() === name.toLowerCase() ? true : false}
-                  onClick={(e: React.MouseEvent) => onSelectGenre(slug, e)}>
-                  <img src={image_background} alt="genre img" />
-                  <a href="/">{name}</a>
-                </CategoriesItem>
-              </li>
-            ))}
+            {genres &&
+              genres.results?.map(({ name, id, slug, image_background }) => (
+                <li key={id}>
+                  <CategoriesItem
+                    active={genreName?.toLowerCase() === name.toLowerCase() ? true : false}
+                    onClick={(e: React.MouseEvent) => onSelectGenre(slug, e)}>
+                    <img src={image_background} alt="genre img" />
+                    <a href="/">{name}</a>
+                  </CategoriesItem>
+                </li>
+              ))}
           </ul>
         </CategoriesMenu>
       </Container>

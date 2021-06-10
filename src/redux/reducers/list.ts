@@ -1,3 +1,4 @@
+import { addGame } from '../../config/firebase';
 import { IGameItem } from '../../interfaces/interfaces';
 import { ADD_LIST_ITEM, REMOVE_LIST_ITEM } from '../../types/listTypes';
 import { Actions } from '../actions/list';
@@ -18,12 +19,14 @@ export const listReducer = (state = initialState, action: Actions): InitialState
         state.listItems.forEach((obj) => {
           if (obj.id === action.payload.id) {
             ids.push(obj.id);
+            addGame(obj);
           }
         });
       }
 
       if (state.listItems.length === 0 || ids[ids.length - 1] !== action.payload.id) {
         newItems.push(action.payload);
+        addGame(action.payload);
       }
 
       return {

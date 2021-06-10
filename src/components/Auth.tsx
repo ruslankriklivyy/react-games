@@ -10,6 +10,7 @@ import closeSvg from '../assets/images/close.svg';
 import googleSvg from '../assets/images/google.svg';
 import githubSvg from '../assets/images/github.svg';
 import { device } from '../utils/deviceMedia';
+import { createUser } from '../config/firebase';
 
 interface IAuthStyled {
   show: boolean;
@@ -26,6 +27,7 @@ const Auth: React.FC<IAuth> = ({ onVisible, show }) => {
   const onHandleClick = async (provider: any) => {
     const res = await socialMediaAuth(provider);
 
+    createUser();
     dispatch(setIsAuth(false));
     dispatch(setUser(res[0]));
     dispatch(setIsAuth(true));

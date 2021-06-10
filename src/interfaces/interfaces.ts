@@ -138,4 +138,5 @@ export interface IScreenshots {
 export interface IUser {
   displayName: string;
   photoURL: string;
+  uid: string;
 }

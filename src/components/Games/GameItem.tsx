@@ -31,7 +31,7 @@ const GameItem: React.FC<IGameItem> = ({
 }) => {
   return (
     <Fade bottom>
-      <GamesItem key={id}>
+      <GamesItem>
         <GamesImg>
           <img src={!background_image ? gameDefaultJpg : background_image} alt="game img" />
         </GamesImg>
