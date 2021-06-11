@@ -7,9 +7,12 @@
 ### This was my first experience using Redux Saga, in this project I relayed the registration through Google and Githab. Here you can view information about any game, add desired games and see what stores are available for the game
 
 ### The technologies I used
+
 - ReactJS
 - TypeScript
 - Redux / Redux Saga
 - FireBase
 - react-reveal
 - styled-components
+- react-firebase-hooks
+- react-inner-image-zoom
