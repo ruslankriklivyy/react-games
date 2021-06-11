@@ -1,9 +1,7 @@
 import React from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import styled, { createGlobalStyle } from 'styled-components';
 
-import { AppRouter, Preloader } from './components';
-import { auth } from './config/firebase';
+import { AppRouter } from './components';
 
 const GlobalStyles = createGlobalStyle`
   *{
@@ -41,17 +39,6 @@ export const Container = styled.div`
 `;
 
 function App() {
-  const [loading] = useAuthState(auth);
-
-  if (!loading) {
-    return (
-      <>
-        <GlobalStyles />
-        <Preloader />
-      </>
-    );
-  }
-
   return (
     <>
       <GlobalStyles />
