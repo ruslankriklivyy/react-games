@@ -1,10 +1,10 @@
-import { addGame } from '../../config/firebase';
 import { IGameItem } from '../../interfaces/interfaces';
-import { ADD_LIST_ITEM, REMOVE_LIST_ITEM } from '../../types/listTypes';
+import { addGame } from '../../service/games';
+import { ADD_LIST_ITEM, REMOVE_LIST_ITEM, SET_LIST } from '../../types/listTypes';
 import { Actions } from '../actions/list';
 
 const initialState = {
-  listItems: [] as Array<IGameItem>,
+  listItems: [] as IGameItem[],
 };
 
 export type InitialState = typeof initialState;
@@ -12,7 +12,7 @@ export type InitialState = typeof initialState;
 export const listReducer = (state = initialState, action: Actions): InitialState => {
   switch (action.type) {
     case ADD_LIST_ITEM: {
-      let newItems: Array<IGameItem> = [...state.listItems];
+      let newItems: IGameItem[] = [...state.listItems];
       let ids: number[] = [];
 
       if (state.listItems.length > 0) {
@@ -43,6 +43,12 @@ export const listReducer = (state = initialState, action: Actions): InitialState
         listItems: newItems,
       };
     }
+
+    case SET_LIST:
+      return {
+        ...state,
+        listItems: [...state.listItems, action.payload],
+      };
 
     default:
       return state;

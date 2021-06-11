@@ -1,6 +1,5 @@
 import React from 'react';
 import Fade from 'react-reveal/Fade';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Button } from '../';
@@ -48,11 +47,9 @@ const GameItem: React.FC<IGameItem> = ({
               </GamesPlatform>
             </GamesTop>
             <GamesReleased>{released}</GamesReleased>
-            <Link to="/game" onClick={() => onSelectGameId && onSelectGameId(id)}>
-              <Button>
-                More Info <img src={arrowSvg} alt="arrow svg" />
-              </Button>
-            </Link>
+            <Button onClick={() => onSelectGameId && onSelectGameId(id)}>
+              More Info <img src={arrowSvg} alt="arrow svg" />
+            </Button>
           </GamesInfoBottom>
         </GamesInfo>
       </GamesItem>

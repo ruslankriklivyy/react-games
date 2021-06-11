@@ -1,12 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { RootState } from '../redux/store';
 import { Auth, GameListsLink } from '.';
 import socialLogout from '../service/logout';
 import { setIsAuth } from '../redux/actions/user';
 import userSvg from '../assets/images/user.svg';
+import { auth } from '../config/firebase';
 
 interface IUserStyled {
   show: boolean;
@@ -14,8 +16,9 @@ interface IUserStyled {
 
 const User = () => {
   const dispatch = useDispatch();
-  const { user, isAuth } = useSelector((state: RootState) => state.userReducer);
+  // const { user, isAuth } = useSelector((state: RootState) => state.userReducer);
   const [visibleAuth, setVisibleAuth] = React.useState(false);
+  const [user] = useAuthState(auth);
 
   const logout = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -60,11 +63,9 @@ const User = () => {
 
   return (
     <>
-      <BlockOut ref={popupRef} show={visibleAuth}></BlockOut>
-      <Auth show={visibleAuth} onVisible={handleVisibleAuth} />
       <UserWrapper>
         <GameListsLink />
-        {isAuth ? (
+        {user ? (
           <UserInfo>
             <UserInfoLeft>
               <span>{user?.displayName}</span>
@@ -72,7 +73,7 @@ const User = () => {
                 Logout
               </a>
             </UserInfoLeft>
-            <img src={user?.photoURL} alt="user" />
+            <img src={user?.photoURL || ''} alt="user" />
           </UserInfo>
         ) : (
           <button onClick={() => handleVisibleAuth()}>

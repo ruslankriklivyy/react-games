@@ -1,37 +1,39 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import firebase from 'firebase';
 
 import { Container } from '../App';
-import { removeItemToList } from '../redux/actions/list';
-import { Back, GameItem } from '../components';
+import { removeItemToList, setList } from '../redux/actions/list';
+import { Back, GameItem, Header } from '../components';
 import { RootState } from '../redux/store';
+import { auth } from '../config/firebase';
+import { deleteGame } from '../service/games';
+import { IGameItem } from '../interfaces/interfaces';
 
 import removeSvg from '../assets/images/remove.svg';
 import emptySvg from '../assets/images/empty.svg';
 import { device } from '../utils/deviceMedia';
-import firebase from 'firebase';
-import { auth, deleteGame } from '../config/firebase';
 
 const ListPage = React.memo(() => {
   const dispatch = useDispatch();
-  const items = useSelector((state: RootState) => state.listReducer.listItems);
-  const [state, setState] = React.useState([]);
+  const { listItems } = useSelector((state: RootState) => state.listReducer);
+  const items = Object.values(listItems);
 
   React.useEffect(() => {
-    auth.onAuthStateChanged((user: any) => {
+    auth.onAuthStateChanged((user) => {
       const db = firebase.firestore();
       db.collection('users')
-        .doc(user.uid)
+        .doc(user?.uid)
         .get()
         .then((doc) => {
           const userArr: any = doc.data();
-          if (userArr.games) {
-            setState(userArr['games']);
+          if (userArr) {
+            dispatch(setList(userArr['games']));
           }
         });
     });
-  }, [state]);
+  }, [dispatch]);
 
   const onRemoveItem = (id: number) => {
     deleteGame(id);
@@ -39,37 +41,40 @@ const ListPage = React.memo(() => {
   };
 
   return (
-    <ListPageWrapper>
-      <Back />
-      <Container>
-        <ListPageBox>
-          {Object.values(state).length > 0 ? (
-            Object.values(state).map(
-              (obj: any) =>
-                obj && (
-                  <GameWrapper key={obj.id}>
-                    <RemoveItem onClick={() => onRemoveItem(obj.id)}>
-                      <img src={removeSvg} alt="remove svg" />
-                    </RemoveItem>
-                    <GameItem
-                      id={obj.id}
-                      background_image={obj.background_image}
-                      name={obj.name}
-                      rating={obj.rating}
-                      released={obj.released}
-                      parent_platforms={obj.parent_platforms}
-                    />
-                  </GameWrapper>
-                ),
-            )
-          ) : (
-            <Empty>
-              <img src={emptySvg} alt="empty svg" />
-            </Empty>
-          )}
-        </ListPageBox>
-      </Container>
-    </ListPageWrapper>
+    <>
+      <Header />
+      <ListPageWrapper>
+        <Back />
+        <Container>
+          <ListPageBox>
+            {items.length > 0 ? (
+              items.map(
+                (obj: IGameItem) =>
+                  obj && (
+                    <GameWrapper key={obj.id}>
+                      <RemoveItem onClick={() => onRemoveItem(obj.id)}>
+                        <img src={removeSvg} alt="remove svg" />
+                      </RemoveItem>
+                      <GameItem
+                        id={obj.id}
+                        background_image={obj.background_image}
+                        name={obj.name}
+                        rating={obj.rating}
+                        released={obj.released}
+                        parent_platforms={obj.parent_platforms}
+                      />
+                    </GameWrapper>
+                  ),
+              )
+            ) : (
+              <Empty>
+                <img src={emptySvg} alt="empty svg" />
+              </Empty>
+            )}
+          </ListPageBox>
+        </Container>
+      </ListPageWrapper>
+    </>
   );
 });
 

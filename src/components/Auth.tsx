@@ -10,18 +10,9 @@ import closeSvg from '../assets/images/close.svg';
 import googleSvg from '../assets/images/google.svg';
 import githubSvg from '../assets/images/github.svg';
 import { device } from '../utils/deviceMedia';
-import { createUser } from '../config/firebase';
+import { createUser } from '../service/games';
 
-interface IAuthStyled {
-  show: boolean;
-}
-
-interface IAuth {
-  onVisible: () => void;
-  show: boolean;
-}
-
-const Auth: React.FC<IAuth> = ({ onVisible, show }) => {
+const Auth = () => {
   const dispatch = useDispatch();
 
   const onHandleClick = async (provider: any) => {
@@ -31,15 +22,10 @@ const Auth: React.FC<IAuth> = ({ onVisible, show }) => {
     dispatch(setIsAuth(false));
     dispatch(setUser(res[0]));
     dispatch(setIsAuth(true));
-
-    onVisible();
   };
 
   return (
-    <AuthWrapper show={show}>
-      <AuthClose onClick={() => onVisible()}>
-        <img src={closeSvg} alt="close svg" />
-      </AuthClose>
+    <AuthWrapper>
       <h4>Login</h4>
       <AuthLink onClick={() => onHandleClick(googleProvider)}>
         <img src={googleSvg} alt="google svg" />
@@ -54,8 +40,6 @@ const Auth: React.FC<IAuth> = ({ onVisible, show }) => {
 };
 
 const AuthWrapper = styled.div`
-  visibility: ${(props: IAuthStyled) => (props.show ? 'visible' : 'hidden')};
-  opacity: ${(props: IAuthStyled) => (props.show ? '1' : '0')};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -63,10 +47,10 @@ const AuthWrapper = styled.div`
   width: 400px;
   min-height: 200px;
   position: absolute;
-  top: 80%;
+  top: 50%;
   left: 50%;
   z-index: 600;
-  transform: translate(-50%, 80%);
+  transform: translate(-50%, -50%);
   border-radius: 20px;
   background-color: #22272b;
   transition: all 0.2s ease;
@@ -112,33 +96,6 @@ const AuthLink = styled.button`
     height: 30px;
     margin-right: 15px;
     transition: all 0.3s ease;
-  }
-`;
-
-const AuthClose = styled.button`
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  z-index: 950;
-  opacity: 0.6;
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  transition: all 0.1s ease;
-  &:active {
-    transform: translateY(5px);
-  }
-  &:hover {
-    img {
-      transform: rotate(90deg);
-    }
-  }
-  img {
-    display: block;
-    width: 17px;
-    height: 17px;
-    transition: all 0.2s ease;
   }
 `;
 

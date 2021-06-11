@@ -14,3 +14,4 @@ export { default as User } from './User';
 export { default as GamePageScreenshots } from './GamePage/GamePageScreenshots';
 export { default as GameInfoItem } from './GamePage/GameInfoItem';
 export { default as GameStoreItem } from './GamePage/GameStoreItem';
+export { default as AppRouter } from './AppRouter';

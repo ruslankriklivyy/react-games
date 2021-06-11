@@ -1,5 +1,5 @@
 import { IGameItem } from '../../interfaces/interfaces';
-import { ADD_LIST_ITEM, REMOVE_LIST_ITEM } from '../../types/listTypes';
+import { ADD_LIST_ITEM, REMOVE_LIST_ITEM, SET_LIST } from '../../types/listTypes';
 
 interface AddItemToList {
   type: typeof ADD_LIST_ITEM;
@@ -19,4 +19,13 @@ export const removeItemToList = (id: number): RemoveItemToList => ({
   payload: id,
 });
 
-export type Actions = AddItemToList | RemoveItemToList;
+interface SetList {
+  type: typeof SET_LIST;
+  payload: IGameItem;
+}
+export const setList = (list: IGameItem): SetList => ({
+  type: SET_LIST,
+  payload: list,
+});
+
+export type Actions = AddItemToList | RemoveItemToList | SetList;

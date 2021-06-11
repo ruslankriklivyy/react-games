@@ -13,6 +13,7 @@ import { Container } from '../../App';
 import { GameItem, GameItemLoader, Paginator } from '..';
 import scrollTop from '../../utils/scrollTop';
 import { device } from '../../utils/deviceMedia';
+import { useHistory } from 'react-router';
 
 const Games = React.memo(() => {
   const dispatch = useDispatch();
@@ -20,12 +21,14 @@ const Games = React.memo(() => {
     (state: RootState) => state.gamesReducer,
   );
   const totalCount = useSelector((state: RootState) => state.gamesReducer.items.count);
+  const history = useHistory();
 
   const onSelectGameId = React.useCallback(
     (id: number) => {
+      history.push(`game/${id}`);
       dispatch(setGameId(id));
     },
-    [dispatch],
+    [dispatch, history],
   );
 
   const onSelectPage = (page: number) => {

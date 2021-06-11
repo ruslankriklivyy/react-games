@@ -3,7 +3,14 @@ import Fade from 'react-reveal/Fade';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { Back, Button, GameInfoItem, GamePageScreenshots, GameStoreItem } from '../components';
+import {
+  Back,
+  Button,
+  GameInfoItem,
+  GamePageScreenshots,
+  GameStoreItem,
+  Header,
+} from '../components';
 import scrollTop from '../utils/scrollTop';
 import { addItemToList } from '../redux/actions/list';
 import { IGameItem, IStoresLinks } from '../interfaces/interfaces';
@@ -61,6 +68,7 @@ const GamePage = () => {
   return (
     chosenGame && (
       <>
+        <Header />
         <Back />
         <Fade left>
           <GamePageBlock>
