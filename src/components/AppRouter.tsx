@@ -7,7 +7,6 @@ import { HOME_ROUTE, LOGIN_ROUTE } from '../utils/consts';
 
 const AppRouter = () => {
   const [user] = useAuthState(auth);
-  // const user = true;
 
   return user ? (
     <Switch>

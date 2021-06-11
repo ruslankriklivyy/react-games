@@ -1,14 +1,34 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { RootState } from '../../redux/store';
 
 import gamesCart from '../../assets/images/games-cart.svg';
 import { device } from '../../utils/deviceMedia';
+import { auth } from '../../config/firebase';
+import firebase from 'firebase';
+import { setList } from '../../redux/actions/list';
 
 const GameListsLink = () => {
+  const dispatch = useDispatch();
   const items = useSelector((state: RootState) => state.listReducer.listItems);
+
+  React.useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      const db = firebase.firestore();
+      db.collection('users')
+        .doc(user?.uid)
+        .get()
+        .then((doc) => {
+          const userArr = doc.data();
+          if (userArr) {
+            dispatch(setList(userArr['games']));
+          }
+        })
+        .catch((err) => alert(err));
+    });
+  }, [dispatch]);
 
   return (
     <GameLists>

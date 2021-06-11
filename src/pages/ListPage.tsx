@@ -27,11 +27,12 @@ const ListPage = React.memo(() => {
         .doc(user?.uid)
         .get()
         .then((doc) => {
-          const userArr: any = doc.data();
+          const userArr = doc.data();
           if (userArr) {
             dispatch(setList(userArr['games']));
           }
-        });
+        })
+        .catch((err) => alert(err));
     });
   }, [dispatch]);
 

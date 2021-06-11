@@ -1,4 +1,5 @@
 import { auth, db } from '../config/firebase';
+import { IGameItem } from '../interfaces/interfaces';
 
 let aUID = '';
 
@@ -31,7 +32,7 @@ export const createUser = () => {
     });
 };
 
-export const addGame = (items: any) => {
+export const addGame = (items: IGameItem) => {
   db.collection('users')
     .doc(aUID)
     .get()

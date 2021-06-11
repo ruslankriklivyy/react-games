@@ -1,22 +1,13 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-import { RootState } from '../redux/store';
-import { Auth, GameListsLink } from '.';
+import { GameListsLink } from '.';
 import socialLogout from '../service/logout';
-import { setIsAuth } from '../redux/actions/user';
 import userSvg from '../assets/images/user.svg';
 import { auth } from '../config/firebase';
 
-interface IUserStyled {
-  show: boolean;
-}
-
 const User = () => {
-  const dispatch = useDispatch();
-  // const { user, isAuth } = useSelector((state: RootState) => state.userReducer);
   const [visibleAuth, setVisibleAuth] = React.useState(false);
   const [user] = useAuthState(auth);
 
@@ -24,7 +15,6 @@ const User = () => {
     e.preventDefault();
 
     await socialLogout();
-    dispatch(setIsAuth(false));
   };
 
   const handleVisibleAuth = React.useCallback(() => {
@@ -119,21 +109,6 @@ const UserWrapper = styled.div`
       height: 100%;
     }
   }
-`;
-
-const BlockOut = styled.div`
-  position: fixed;
-  visibility: ${(props: IUserStyled) => (props.show ? 'visible' : 'hidden')};
-  opacity: ${(props: IUserStyled) => (props.show ? '1' : '0')};
-  width: 100%;
-  height: 100vh;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 300;
-  background: rgba(0, 0, 0, 0.7);
-  transition: all 0.2s ease;
 `;
 
 const UserInfo = styled.div`

@@ -47,7 +47,7 @@ export const listReducer = (state = initialState, action: Actions): InitialState
     case SET_LIST:
       return {
         ...state,
-        listItems: [...state.listItems, action.payload],
+        listItems: [...Object.values(action.payload)],
       };
 
     default:

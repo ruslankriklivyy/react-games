@@ -1,27 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import firebase from '../config/firebase';
 
 import { githubProvider, googleProvider } from '../config/authMethods';
 import socialMediaAuth from '../service/auth';
-import { setIsAuth, setUser } from '../redux/actions/user';
 
-import closeSvg from '../assets/images/close.svg';
 import googleSvg from '../assets/images/google.svg';
 import githubSvg from '../assets/images/github.svg';
 import { device } from '../utils/deviceMedia';
 import { createUser } from '../service/games';
 
 const Auth = () => {
-  const dispatch = useDispatch();
-
-  const onHandleClick = async (provider: any) => {
-    const res = await socialMediaAuth(provider);
-
+  const onHandleClick = async (provider: firebase.auth.AuthProvider) => {
+    await socialMediaAuth(provider);
     createUser();
-    dispatch(setIsAuth(false));
-    dispatch(setUser(res[0]));
-    dispatch(setIsAuth(true));
   };
 
   return (

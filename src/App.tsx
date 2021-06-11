@@ -1,13 +1,15 @@
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import styled, { createGlobalStyle } from 'styled-components';
 
-import { AppRouter } from './components';
+import { AppRouter, Preloader } from './components';
+import { auth } from './config/firebase';
 
 const GlobalStyles = createGlobalStyle`
-*{
-  box-sizing: border-box;
-  font-family: 'Rubik', sans-serif;
-}
+  *{
+    box-sizing: border-box;
+    font-family: 'Rubik', sans-serif;
+  }
   html, body {
     background-color: #1E1F21;
     color: #fff;
@@ -39,6 +41,17 @@ export const Container = styled.div`
 `;
 
 function App() {
+  const [loading] = useAuthState(auth);
+
+  if (!loading) {
+    return (
+      <>
+        <GlobalStyles />
+        <Preloader />
+      </>
+    );
+  }
+
   return (
     <>
       <GlobalStyles />
