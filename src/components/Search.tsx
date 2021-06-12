@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { useDebouncedCallback } from 'use-debounce';
 
 import { setQuearySearch } from '../redux/actions/games';
 import { RootState } from '../redux/store';
@@ -11,9 +12,9 @@ const Search = React.memo(() => {
   const dispatch = useDispatch();
   const quearySearch = useSelector((state: RootState) => state.gamesReducer.querySearch);
 
-  const onHandleChange = (value: string) => {
+  const onHandleChange = useDebouncedCallback((value: string) => {
     dispatch(setQuearySearch(value));
-  };
+  }, 50);
 
   return (
     <SearchWrapper>
