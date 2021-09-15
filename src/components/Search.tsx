@@ -14,7 +14,7 @@ const Search = React.memo(() => {
 
   const onHandleChange = useDebouncedCallback((value: string) => {
     dispatch(setQuearySearch(value));
-  }, 50);
+  }, 60);
 
   return (
     <SearchWrapper>
