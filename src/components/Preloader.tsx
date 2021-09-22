@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Preloader = () => {
+export const Preloader = () => {
   return (
     <Loader>
       <div className="lds-default">
@@ -21,8 +21,6 @@ const Preloader = () => {
     </Loader>
   );
 };
-
-export default Preloader;
 
 const Loader = styled.div`
   position: absolute;

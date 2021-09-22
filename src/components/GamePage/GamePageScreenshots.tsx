@@ -11,7 +11,7 @@ interface IGamePageScreenshots {
   screenshots: IScreenshots;
 }
 
-const GamePageScreenshots: React.FC<IGamePageScreenshots> = ({ screenshots }) => {
+export const GamePageScreenshots: React.FC<IGamePageScreenshots> = ({ screenshots }) => {
   const settings = {
     dots: true,
     arrows: false,
@@ -90,5 +90,3 @@ const GamePageScreenshotsWrapper = styled.div`
     }
   }
 `;
-
-export default GamePageScreenshots;

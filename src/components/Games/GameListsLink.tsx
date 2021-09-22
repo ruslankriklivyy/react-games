@@ -10,7 +10,7 @@ import { auth } from '../../config/firebase';
 import firebase from 'firebase';
 import { setList } from '../../redux/actions/list';
 
-const GameListsLink = () => {
+export const GameListsLink = () => {
   const dispatch = useDispatch();
   const items = useSelector((state: RootState) => state.listReducer.listItems);
 
@@ -81,5 +81,3 @@ const GameLists = styled.span`
     color: #fff;
   }
 `;
-
-export default GameListsLink;

@@ -1,7 +1,7 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-const GameItemLoader = () => (
+export const GameItemLoader = () => (
   <ContentLoader
     speed={2}
     width={400}
@@ -12,5 +12,3 @@ const GameItemLoader = () => (
     <rect x="0" y="0" rx="25" ry="25" width="325" height="440" />
   </ContentLoader>
 );
-
-export default GameItemLoader;

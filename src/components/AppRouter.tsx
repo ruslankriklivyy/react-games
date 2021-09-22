@@ -5,7 +5,7 @@ import { auth } from '../config/firebase';
 import { privateRoutes, publicRoutes } from '../routes';
 import { HOME_ROUTE, LOGIN_ROUTE } from '../utils/consts';
 
-const AppRouter = () => {
+export const AppRouter = () => {
   const [user] = useAuthState(auth);
 
   return user ? (
@@ -24,5 +24,3 @@ const AppRouter = () => {
     </Switch>
   );
 };
-
-export default AppRouter;

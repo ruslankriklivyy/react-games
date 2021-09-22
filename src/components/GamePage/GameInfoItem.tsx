@@ -6,7 +6,7 @@ interface IGameInfoItem {
   chosenGame: IGameItem;
 }
 
-const GameInfoItem: React.FC<IGameInfoItem> = ({ chosenGame }) => {
+export const GameInfoItem: React.FC<IGameInfoItem> = ({ chosenGame }) => {
   return (
     <GamePageInfo>
       <GamePageInfoItem>
@@ -53,5 +53,3 @@ const GamePageDevelopers = styled.div`
     border-right: none;
   }
 `;
-
-export default GameInfoItem;

@@ -10,7 +10,7 @@ import githubSvg from '../assets/images/github.svg';
 import { device } from '../utils/deviceMedia';
 import { createUser } from '../service/games';
 
-const Auth = () => {
+export const Auth = () => {
   const onHandleClick = async (provider: firebase.auth.AuthProvider) => {
     await socialMediaAuth(provider);
     createUser();
@@ -90,5 +90,3 @@ const AuthLink = styled.button`
     transition: all 0.3s ease;
   }
 `;
-
-export default Auth;

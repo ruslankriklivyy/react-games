@@ -2,7 +2,7 @@ import React from 'react';
 import Fade from 'react-reveal/Fade';
 import styled from 'styled-components';
 
-import { Button } from '../';
+import { Button } from '../Button';
 import { IPlatforms } from '../../interfaces/interfaces';
 
 import starSvg from '../../assets/images/star.svg';
@@ -19,7 +19,7 @@ interface IGameItem {
   onSelectGameId?: (id: number) => void;
 }
 
-const GameItem: React.FC<IGameItem> = ({
+export const GameItem: React.FC<IGameItem> = ({
   id,
   background_image,
   name,
@@ -154,5 +154,3 @@ const GamesTop = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-
-export default GameItem;

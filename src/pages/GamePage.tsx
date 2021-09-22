@@ -3,14 +3,6 @@ import Fade from 'react-reveal/Fade';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import {
-  Back,
-  Button,
-  GameInfoItem,
-  GamePageScreenshots,
-  GameStoreItem,
-  Header,
-} from '../components';
 import scrollTop from '../utils/scrollTop';
 import { addItemToList } from '../redux/actions/list';
 import { IGameItem, IStoresLinks } from '../interfaces/interfaces';
@@ -21,6 +13,12 @@ import { RootState } from '../redux/store';
 import linkSvg from '../assets/images/link.svg';
 import plusSvg from '../assets/images/plus.svg';
 import starSvg from '../assets/images/star.svg';
+import { Header } from '../components/Header';
+import { Back } from '../components/Back';
+import { GameInfoItem } from '../components/GamePage/GameInfoItem';
+import { GameStoreItem } from '../components/GamePage/GameStoreItem';
+import { Button } from '../components/Button';
+import { GamePageScreenshots } from '../components/GamePage/GamePageScreenshots';
 
 const GamePage = () => {
   const dispatch = useDispatch();

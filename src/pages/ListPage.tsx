@@ -5,7 +5,6 @@ import firebase from 'firebase';
 
 import { Container } from '../App';
 import { removeItemToList, setList } from '../redux/actions/list';
-import { Back, GameItem, Header } from '../components';
 import { RootState } from '../redux/store';
 import { auth } from '../config/firebase';
 import { deleteGame } from '../service/games';
@@ -14,6 +13,9 @@ import { IGameItem } from '../interfaces/interfaces';
 import removeSvg from '../assets/images/remove.svg';
 import emptySvg from '../assets/images/empty.svg';
 import { device } from '../utils/deviceMedia';
+import { Header } from '../components/Header';
+import { Back } from '../components/Back';
+import { GameItem } from '../components/Games/GameItem';
 
 const ListPage = React.memo(() => {
   const dispatch = useDispatch();

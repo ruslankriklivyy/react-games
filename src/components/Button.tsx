@@ -6,7 +6,7 @@ interface IButton {
   onClick?: React.ReactEventHandler;
 }
 
-const Button: React.FC<IButton> = ({ children, onClick }) => {
+export const Button: React.FC<IButton> = ({ children, onClick }) => {
   return <ButtonMain onClick={onClick}>{children}</ButtonMain>;
 };
 
@@ -27,5 +27,3 @@ const ButtonMain = styled.button`
     transform: translateY(5px);
   }
 `;
-
-export default Button;

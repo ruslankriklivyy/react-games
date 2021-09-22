@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-import { GameListsLink } from '.';
 import socialLogout from '../service/logout';
 import userSvg from '../assets/images/user.svg';
 import { auth } from '../config/firebase';
+import { GameListsLink } from './Games/GameListsLink';
 
-const User = () => {
+export const User = () => {
   const [visibleAuth, setVisibleAuth] = React.useState(false);
   const [user] = useAuthState(auth);
 
@@ -63,7 +63,7 @@ const User = () => {
                 Logout
               </a>
             </UserInfoLeft>
-            <img src={user?.photoURL || ''} alt="user" />
+            <img src={user.photoURL || ''} alt="user" />
           </UserInfo>
         ) : (
           <button onClick={() => handleVisibleAuth()}>
@@ -129,5 +129,3 @@ const UserInfo = styled.div`
     display: block;
   }
 `;
-
-export default User;

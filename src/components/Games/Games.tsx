@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useHistory } from 'react-router';
 
 import {
   fetchGames,
@@ -10,12 +11,13 @@ import {
 } from '../../redux/actions/games';
 import { RootState } from '../../redux/store';
 import { Container } from '../../App';
-import { GameItem, GameItemLoader, Paginator } from '..';
 import scrollTop from '../../utils/scrollTop';
 import { device } from '../../utils/deviceMedia';
-import { useHistory } from 'react-router';
+import { Paginator } from '../Paginator';
+import { GameItemLoader } from './GameItemLoader';
+import { GameItem } from './GameItem';
 
-const Games = React.memo(() => {
+export const Games = React.memo(() => {
   const dispatch = useDispatch();
   const { items, orderBy, genreName, querySearch, currentPage, isLoadingGames } = useSelector(
     (state: RootState) => state.gamesReducer,
@@ -84,5 +86,3 @@ const GamesMain = styled.div`
     flex-direction: column;
   }
 `;
-
-export default Games;

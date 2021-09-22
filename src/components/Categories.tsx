@@ -11,7 +11,7 @@ interface IProps {
   active: boolean;
 }
 
-const Categories = React.memo(() => {
+export const Categories = React.memo(() => {
   const dispatch = useDispatch();
   const genres = useSelector((state: RootState) => state.gamesReducer.genres);
   const genreName = useSelector((state: RootState) => state.gamesReducer.genreName);
@@ -119,5 +119,3 @@ const CategoriesItem = styled.div`
     height: 100%;
   }
 `;
-
-export default Categories;

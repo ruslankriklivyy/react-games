@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import backSvg from '../assets/images/back.svg';
 import { device } from '../utils/deviceMedia';
 
-const Back = () => {
+export const Back = () => {
   const history = useHistory();
 
   const onBack = () => {
@@ -55,5 +55,3 @@ const BackWrapper = styled.div`
     height: 20px;
   }
 `;
-
-export default Back;

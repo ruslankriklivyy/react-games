@@ -12,7 +12,7 @@ interface SortByStylesProps {
 
 const sortByTypes = ['Metacritic', 'Released', 'Name', 'Rating'];
 
-const SortBy = () => {
+export const SortBy = () => {
   const dispatch = useDispatch();
   const sortBy = useSelector((state: RootState) => state.gamesReducer.orderBy);
   const [visibleSortBy, setVisibleSortBy] = React.useState(false);
@@ -150,5 +150,3 @@ const SortByBox = styled.div`
     }
   }
 `;
-
-export default SortBy;

@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Search, User } from '.';
 import { Container } from '../App';
+import { Search } from './Search';
+import { User } from './User';
 
-const Header = React.memo(() => {
+export const Header = React.memo(() => {
   return (
     <HeaderMain>
       <Container>
@@ -33,5 +34,3 @@ const HeaderBlock = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-
-export default Header;

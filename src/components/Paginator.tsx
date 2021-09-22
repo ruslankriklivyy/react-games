@@ -9,7 +9,7 @@ interface IPaginator {
   onSelectPage: (pageNumber: number) => void;
 }
 
-const Paginator: React.FC<IPaginator> = ({ currentPage, totalPages, onSelectPage }) => {
+export const Paginator: React.FC<IPaginator> = ({ currentPage, totalPages, onSelectPage }) => {
   const perPage = 5;
   const countPages = Math.ceil(totalPages / perPage);
   const pages: Array<number> = [];
@@ -49,5 +49,3 @@ const PaginatorWrapper = styled.div`
     }
   }
 `;
-
-export default Paginator;

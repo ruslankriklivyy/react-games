@@ -8,7 +8,7 @@ import { RootState } from '../redux/store';
 
 import searchSvg from '../assets/images/search.svg';
 
-const Search = React.memo(() => {
+export const Search = React.memo(() => {
   const dispatch = useDispatch();
   const quearySearch = useSelector((state: RootState) => state.gamesReducer.querySearch);
 
@@ -68,5 +68,3 @@ const SearchWrapper = styled.div`
     height: 18px;
   }
 `;
-
-export default Search;
