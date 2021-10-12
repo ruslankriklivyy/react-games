@@ -140,3 +140,19 @@ export interface IUser {
   photoURL: string;
   uid: string;
 }
+
+export interface IOneGameItemResponse {
+  data: IGameItem;
+}
+
+export interface IScreenshotsResponse {
+  data: IScreenshots;
+}
+
+export interface IGamesResponse {
+  data: IGames;
+}
+
+export interface IGenresPresponse {
+  data: IGenres;
+}

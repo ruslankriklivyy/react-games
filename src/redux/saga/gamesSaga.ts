@@ -15,7 +15,12 @@ import {
   setGenres,
   setScreenshots,
 } from '../actions/games';
-import { IGameItem, IGames, IGenres, IScreenshots } from '../../interfaces/interfaces';
+import {
+  IGamesResponse,
+  IGenresPresponse,
+  IOneGameItemResponse,
+  IScreenshotsResponse,
+} from '../../interfaces/interfaces';
 import {
   fetchGamesFromApi,
   fetchGenresFromApi,
@@ -23,26 +28,46 @@ import {
   fetchScreenshotsFromApi,
 } from '../../api/api';
 
-function* fetchScreenshotsWorker(action: FetchScreenshots) {
-  const data: IScreenshots = yield fetchScreenshotsFromApi(action);
-  yield put(setScreenshots(data));
+function* fetchScreenshotsWorker({ payload }: FetchScreenshots) {
+  try {
+    const { data }: IScreenshotsResponse = yield call(fetchScreenshotsFromApi, payload);
+    yield put(setScreenshots(data));
+  } catch (err) {
+    console.log(err);
+  }
 }
 
-function* fetchGamesWorker(action: FetchGames) {
-  const { genreName, quearySearch, pageNumber, orderBy } = action;
-
-  const data: IGames = yield fetchGamesFromApi(genreName, quearySearch, pageNumber, orderBy);
-  yield put(setGames(data));
+function* fetchGamesWorker({ genreName, quearySearch, pageNumber, orderBy }: FetchGames) {
+  try {
+    const { data }: IGamesResponse = yield call(
+      fetchGamesFromApi,
+      genreName,
+      quearySearch,
+      pageNumber,
+      orderBy,
+    );
+    yield put(setGames(data));
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 function* fetchOneGameWorker(action: FetchOneGame) {
-  const data: IGameItem = yield fetchOneGameFromApi(action.payload);
-  yield put(setChosenGame(data));
+  try {
+    const { data }: IOneGameItemResponse = yield call(fetchOneGameFromApi, action.payload);
+    yield put(setChosenGame(data));
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 function* fetchGenresWorker() {
-  const data: IGenres = yield call(fetchGenresFromApi);
-  yield put(setGenres(data));
+  try {
+    const { data }: IGenresPresponse = yield call(fetchGenresFromApi);
+    yield put(setGenres(data));
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 export function* screenshotsWatcher() {

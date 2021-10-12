@@ -43,7 +43,9 @@ export const GameItem: React.FC<IGameItem> = ({
               </GamesRating>
               <GamesPlatform>
                 {parent_platforms?.length > 0 &&
-                  parent_platforms.slice(0, 3).map((item) => <span>{item.platform.name}</span>)}
+                  parent_platforms
+                    .slice(0, 3)
+                    .map((item, index) => <span key={index}>{item.platform.name}</span>)}
               </GamesPlatform>
             </GamesTop>
             <GamesReleased>{released}</GamesReleased>
